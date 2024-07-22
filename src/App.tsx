@@ -7,19 +7,33 @@ import { ResponserMainPage } from "./pages/Responser/ResponserMainPage";
 import MatchingCompletedModal from "./components/Modal/MatchingCompletedModal";
 import Start from "./pages/LoginPage/Start";
 import useWindowSize from "./components/UsewindowSize";
+import SwipeableModal from "./components/SwipeableModal";
+import React, { useState } from 'react';
 
 interface LayoutProps {
   width:number,
 }
 
 function App() {
+  const [isModalOpen, setIsModalOpen] = useState( true);
 
+  const openModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
 
   const { width, height } = useWindowSize();
 
   return (
     <RecoilRoot>
       <Layout width={width}>
+      <div>
+      <button onClick={openModal}>Open Modal</button>
+      <SwipeableModal isOpen={isModalOpen} onClose={closeModal} />
+    </div>
         <Routes>
         <Route path="/" element={<Start />} />
           <Route path="/login" element={<Login />} />

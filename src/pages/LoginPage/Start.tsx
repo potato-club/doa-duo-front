@@ -40,7 +40,6 @@ const LoginContainer = styled.div<LoginContainerProps>`
 
   p{
     color: #FFF;
-
 font-size: 20px;
 font-style: normal;
 font-weight: 400;
