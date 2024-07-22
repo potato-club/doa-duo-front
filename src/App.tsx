@@ -3,10 +3,9 @@ import Login from "./pages/LoginPage/Login";
 import { Route, Routes, useLocation } from "react-router-dom";
 import { RecoilRoot } from "recoil";
 import SignUp from "./pages/LoginPage/SignUp";
-import { ResponserMainPage } from "./pages/Responser/ResponserMainPage";
+import { RespondentMainPage } from "./pages/Respondent/RespondentMainPage";
 import Start from "./pages/LoginPage/Start";
 import useWindowSize from "./components/UsewindowSize";
-import SwipeableModal from "./components/SwipeableModal";
 import React, { useState } from 'react';
 import { RequesterMainPage } from "./pages/Requester/RequesterMainPage";
 
@@ -25,7 +24,7 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<SignUp />} />
           <Route path="/main" element={<Login />} />
-          <Route path="/res-main" element={<ResponserMainPage />} />
+          <Route path="/res-main" element={<RespondentMainPage />} />
           <Route path="/req-main" element={<RequesterMainPage />} />
         </Routes>
       </Layout>

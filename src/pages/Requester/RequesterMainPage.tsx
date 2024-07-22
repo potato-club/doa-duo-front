@@ -7,7 +7,7 @@ import { MyPositionMarker } from '../../components/map/MyPositionMarker';
 import { ResetButton } from '../../components/map/ResetButton';
 import { RequestForm } from '../../components/RequestForm';
 import Footer from '../../components/Footer';
-import SwipeableModal from '../../components/SwipeableModal';
+import { MenuModal } from '../../components/MenuModal';
 
 export interface RequesterMainPageProps {}
 
@@ -32,13 +32,6 @@ export const RequesterMainPage: React.FC<RequesterMainPageProps> = (props) => {
 
   return (
     <Container>
-      <SwipeableModal
-        isOpen={isRequestModalOpen}
-        onClose={() => setIsRequestModalOpen(false)}
-        bottomOffset={65}
-      >
-        <RequestForm />
-      </SwipeableModal>
       <StyledMap
         center={center}
         onDragEnd={(map: any) => {
@@ -62,6 +55,11 @@ export const RequesterMainPage: React.FC<RequesterMainPageProps> = (props) => {
           }}
         />
       </Overlay>
+      <MenuModal
+        isOpen={isRequestModalOpen}
+        onClose={() => setIsRequestModalOpen(false)}
+        bottomOffset={65}
+      />
     </Container>
   );
 };

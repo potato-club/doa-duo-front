@@ -17,7 +17,7 @@ export const TextField: React.FC<TextFieldProps> = ({
 
 const Container = styled.div`
   background-color: var(--color-gray-50);
-  height: 40px;
+  padding: 12px 0;
   border-radius: 20px;
   outline: none;
   display: flex;
@@ -28,8 +28,7 @@ const Input = styled.input`
   border: none;
   outline: none;
   background-color: transparent;
-  font-family: 12LotteMartDreamLight;
-  font-size: 10px;
+  font-size: 12px;
   font-style: normal;
   font-weight: 400;
   line-height: normal;

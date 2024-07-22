@@ -1,20 +1,20 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { Map } from 'react-kakao-maps-sdk';
-import { MyPositionMarker } from '../../../components/map/MyPositionMarker';
-import { Position } from '../../../types';
-import { useMyPositionHook } from '../../../hooks/useMyPositionHook';
-import { RequestCard } from '../../../components/RequestCard';
-import { ResetButton } from '../../../components/map/ResetButton';
+import { MyPositionMarker } from '../../components/map/MyPositionMarker';
+import { Position } from '../../types';
+import { useMyPositionHook } from '../../hooks/useMyPositionHook';
+import { RequestCard } from '../../components/RequestCard';
+import { ResetButton } from '../../components/map/ResetButton';
 
-export interface ResponserMainPageProps {}
+export interface RespondentMainPageProps {}
 
 const DefaultPosition: Position = {
   lat: 37.5665,
   lng: 126.978,
 };
 
-export const ResponserMainPage: React.FC<ResponserMainPageProps> = (props) => {
+export const RespondentMainPage: React.FC<RespondentMainPageProps> = (props) => {
   const [center, setCenter] = useState<Position>(DefaultPosition);
   const [isFirst, setIsFirst] = useState(true);
   const [isEnable, setIsEnable] = useState(false);
