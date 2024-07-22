@@ -23,9 +23,6 @@ const Layout = styled.div`
   flex-direction: column;
   align-items: center;
   box-sizing: border-box;
-  max-width: 500px;
-  @media screen and (max-width: 425px) {
-    width: 425px;
-  }
+
 `;
 
