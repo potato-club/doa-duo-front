@@ -17,10 +17,10 @@ export const MyPositionMarker: React.FC<MyLocationMarkerProps> = (props) => {
         src: '/img/markers/my-position.svg',
         size: {
           width: 56,
-          height: 55,
+          height: 70,
         },
         options: {
-          offset: { x: 28, y: 55 },
+          offset: { x: 28, y: 70 },
         },
       }}
     />

@@ -55,6 +55,41 @@ export const GlobalStyle = createGlobalStyle`
   src: url('//fastly.jsdelivr.net/korean-webfonts/1/corps/lottemart/LotteMartDream/LotteMartDreamLight.woff2') format('woff2'), url('//fastly.jsdelivr.net/korean-webfonts/1/corps/lottemart/LotteMartDream/LotteMartDreamLight.woff') format('woff');
 }
   @font-face {
+    font-family: "MediumFont1"; /* 사용할 폰트 이름 */
+    src: url("/fonts/font1/12롯데마트행복Medium.ttf") format("truetype"); /* 폰트 파일 경로 */
+    font-weight: normal;
+    font-style: normal;
+  }
+
+  @font-face { 
+    font-family: "LightFont1"; /* 사용할 폰트 이름 */
+    src: url("/fonts/font1/12롯데마트행복Light.ttf") format("truetype"); /* 폰트 파일 경로 */
+    font-weight: normal;
+    font-style: normal;
+  }
+
+  @font-face {
+    font-family: "LotteMartHappy"; /* 사용할 폰트 이름 */
+    src: url("/fonts/font1/12롯데마트행복Bold.ttf") format("truetype"); /* 폰트 파일 경로 */
+    font-weight: 700;
+    font-style: normal;
+  }
+
+  @font-face {
+    font-family: "LotteMartHappy"; /* 사용할 폰트 이름 */
+    src: url("/fonts/font1/12롯데마트행복Medium.ttf") format("truetype"); /* 폰트 파일 경로 */
+    font-weight: 400;
+    font-style: normal;
+  }
+
+  @font-face { 
+    font-family: "LotteMartHappy"; /* 사용할 폰트 이름 */
+    src: url("/fonts/font1/12롯데마트행복Light.ttf") format("truetype"); /* 폰트 파일 경로 */
+    font-weight: 300;
+    font-style: normal;
+  }
+
+  @font-face {
     font-family: 'LotteMartDream';
     font-style: normal;
     font-weight: 400;
