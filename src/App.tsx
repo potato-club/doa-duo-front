@@ -25,15 +25,10 @@ function App() {
       <Layout width={width}>
         <Routes>
         <Route path="/" element={<Start />} />
-          <Route path="/header/login" element={<Login />} />
           <Route path="/header/Card" element={<CardContainer />} />
-          <Route path="/header/signup" element={<SignUp />} />
-          <Route path="/res-main" element={<RespondentMainPage />} />
-          <Route path="/header/main" element={<RespondentMainPage />} />
         <Route path="/" element={<Start />} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<SignUp />} />
-          <Route path="/main" element={<Login />} />
           <Route path="/res-main" element={<RespondentMainPage />} />
           <Route path="/req-main" element={<RequesterMainPage />} />
         </Routes>

@@ -3,6 +3,7 @@ import styled from "styled-components";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import useWindowSize from "../../components/UsewindowSize";
+import { jwtDecode } from "jwt-decode";
 
 interface LoginContainerProps  {
   height: number,
@@ -36,6 +37,11 @@ const Login: React.FC = () => {
       localStorage.setItem("At", jwtToken);
       const refreshToken = res.headers["rt"];
       localStorage.setItem("Rt", refreshToken);
+
+      const decoded = jwtDecode(jwtToken.split(" ")[1]);
+
+      console.log(decoded)
+      
       navigate("/header/main");
     } catch (error) {
       console.log(error);

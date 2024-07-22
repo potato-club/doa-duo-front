@@ -2,12 +2,21 @@ import React from 'react';
 import styled from 'styled-components';
 import { TextField } from './TextField';
 
+export interface MatchingRequestDTO {
+  latitude: number;
+  longitude: number;
+  address: string;
+  quickMessage: string;
+}
+
 export interface RequestFormSheetProps {
   onSubmit: () => void;
   currentAddress?: string;
 }
 
 export const RequestForm: React.FC<RequestFormSheetProps> = (props) => {
+  const [address, setAddress] = React.useState('');
+
   return (
     <Container>
       <Title>현 주소를 설정해주세요!</Title>

@@ -21,8 +21,8 @@ const Start: React.FC = () => {
         <Logo><img src="/img/icons/Logo.svg"/></Logo>
  <p>도와듀오가 처음이신가요?</p>
 
- <StyledBTN to="/header/login" width={183} height={39}>기존 회원 로그인하기</StyledBTN>
- <StyledBTN to="/header/signup" width={183} height={39}>신규 회원 가입하기</StyledBTN>
+ <StyledBTN to="/login" width={183} height={39}>기존 회원 로그인하기</StyledBTN>
+ <StyledBTN to="/signup" width={183} height={39}>신규 회원 가입하기</StyledBTN>
   </LoginContainer>
 
 

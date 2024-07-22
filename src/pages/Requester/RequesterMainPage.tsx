@@ -9,6 +9,7 @@ import { RequestForm } from '../../components/RequestForm';
 import Footer from '../../components/Footer';
 import { MenuModal } from '../../components/MenuModal';
 import { SwipeableModal } from '../../components/SwipeableModal';
+import MatchingCompletedModal from '../../components/Modal/MatchingCompletedModal';
 
 export interface RequesterMainPageProps {}
 
@@ -80,6 +81,7 @@ export const RequesterMainPage: React.FC<RequesterMainPageProps> = (props) => {
           요청 중입니다...
         </Backdrop>
       ) : null}
+      <CompleteWrapper><MatchingCompletedModal username='안호빈' /></CompleteWrapper>
       <StyledMap
         center={center}
         onDragEnd={(map: any) => {
@@ -191,3 +193,13 @@ const Backdrop = styled.div`
   font-weight: 400;
   line-height: 150%;
 `;
+
+const CompleteWrapper = styled.div`
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  padding-top: 56px;
+  z-index: 1000;
+`
