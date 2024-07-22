@@ -4,15 +4,16 @@ import { TextField } from './TextField';
 
 export interface RequestFormSheetProps {
   onSubmit: () => void;
+  currentAddress?: string;
 }
 
 export const RequestForm: React.FC<RequestFormSheetProps> = (props) => {
   return (
     <Container>
-      <Title>여기로 부를까요?</Title>
-      <StyledTextField placeholder="현 주소" />
-      <StyledTextField placeholder="상세 주소" />
-      <StyledTextField placeholder="요청사항을 적어주세요" />
+      <Title>현 주소를 설정해주세요!</Title>
+      <StyledTextField placeholder="현 주소" value={props.currentAddress} />
+      <StyledTextField placeholder="상세주소를 입력해주세요." />
+      <StyledTextField placeholder="요청사항을 적어주세요." />
       <SubmitButton onClick={props.onSubmit}>요청하기</SubmitButton>
     </Container>
   );

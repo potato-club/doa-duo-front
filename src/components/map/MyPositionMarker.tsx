@@ -1,5 +1,6 @@
 import React from 'react';
 import { MapMarker } from 'react-kakao-maps-sdk';
+import styled from 'styled-components';
 
 export interface MyLocationMarkerProps {
   position: {
@@ -10,7 +11,7 @@ export interface MyLocationMarkerProps {
 
 export const MyPositionMarker: React.FC<MyLocationMarkerProps> = (props) => {
   return (
-    <MapMarker
+    <StyledMapMarker
       position={props.position}
       image={{
         src: '/img/markers/my-position.svg',
@@ -25,3 +26,7 @@ export const MyPositionMarker: React.FC<MyLocationMarkerProps> = (props) => {
     />
   );
 };
+
+const StyledMapMarker = styled(MapMarker)`
+  z-index: 1000;
+`;

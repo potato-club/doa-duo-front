@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 import { Map } from 'react-kakao-maps-sdk';
 import { Position } from '../../types';
@@ -8,6 +8,7 @@ import { ResetButton } from '../../components/map/ResetButton';
 import { RequestForm } from '../../components/RequestForm';
 import Footer from '../../components/Footer';
 import { MenuModal } from '../../components/MenuModal';
+import { SwipeableModal } from '../../components/SwipeableModal';
 
 export interface RequesterMainPageProps {}
 
@@ -16,12 +17,24 @@ const DefaultPosition: Position = {
   lng: 126.978,
 };
 
+const enum Status {
+  None,
+  Request,
+  Pending,
+  Waiting,
+}
+
 export const RequesterMainPage: React.FC<RequesterMainPageProps> = (props) => {
+  const [status, setStatus] = useState(Status.None);
   const [center, setCenter] = useState<Position>(DefaultPosition);
+  const [requestPosition, setRequestPosition] =
+    useState<Position>(DefaultPosition);
   const [isFirst, setIsFirst] = useState(true);
-  const [isRequestModalOpen, setIsRequestModalOpen] = useState(false);
+  const [address, setAddress] = useState('');
 
   const myPosition = useMyPositionHook();
+
+  const geocoder = useRef(new kakao.maps.services.Geocoder());
 
   useEffect(() => {
     if (isFirst && myPosition) {
@@ -30,8 +43,43 @@ export const RequesterMainPage: React.FC<RequesterMainPageProps> = (props) => {
     }
   }, [isFirst, myPosition]);
 
+  useEffect(() => {
+    geocoder.current.coord2Address(center.lng, center.lat, (result) => {
+      if (result.length === 0) {
+        return;
+      }
+
+      setAddress(
+        result[0].road_address?.address_name ?? result[0].address.address_name
+      );
+    });
+  }, [address, center.lat, center.lng]);
+
   return (
     <Container>
+      {status === Status.None || status === Status.Request ? (
+        <SwipeableModal
+          isOpen={status === Status.Request}
+          onOpen={() => setStatus(Status.Request)}
+          onClose={() => setStatus(Status.None)}
+          bottomOffset={65}
+        >
+          <RequestForm
+            currentAddress={address}
+            onSubmit={() => {
+              setRequestPosition(center);
+              setStatus(Status.Pending);
+            }}
+          />
+        </SwipeableModal>
+      ) : null}
+      {status === Status.Pending ? (
+        <Backdrop>
+          10분 거리 내에서
+          <br />
+          요청 중입니다...
+        </Backdrop>
+      ) : null}
       <StyledMap
         center={center}
         onDragEnd={(map: any) => {
@@ -40,26 +88,47 @@ export const RequesterMainPage: React.FC<RequesterMainPageProps> = (props) => {
         }}
         isPanto
       >
-        {myPosition ? <MyPositionMarker position={myPosition} /> : null}
+        {myPosition ? (
+          <MyPositionMarker
+            position={(() => {
+              switch (status) {
+                case Status.None:
+                  return myPosition;
+                case Status.Request:
+                  return center;
+                case Status.Pending:
+                case Status.Waiting:
+                  return requestPosition;
+              }
+            })()}
+          />
+        ) : null}
       </StyledMap>
       <Overlay>
-        <ResetButton
+        {/* <ResetButton
           onClick={() => {
             setCenter(myPosition ?? DefaultPosition);
           }}
-        />
-        <Footer
-          onMenuClick={(event) => {
-            event.stopPropagation();
-            setIsRequestModalOpen((prev) => !prev);
-          }}
-        />
+        /> */}
+        {status === Status.Pending ? (
+          <CancelButton onClick={() => setStatus(Status.None)}>
+            취소하기
+          </CancelButton>
+        ) : null}
+        {status !== Status.Pending ? (
+          <Footer
+            onMenuClick={(event) => {
+              // event.stopPropagation();
+              // setIsRequestModalOpen((prev) => !prev);
+            }}
+          />
+        ) : null}
       </Overlay>
-      <MenuModal
+      {/* <MenuModal
         isOpen={isRequestModalOpen}
         onClose={() => setIsRequestModalOpen(false)}
         bottomOffset={65}
-      />
+      /> */}
     </Container>
   );
 };
@@ -76,7 +145,49 @@ const StyledMap = styled(Map)`
 `;
 
 const Overlay = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
   position: absolute;
   bottom: 0;
   z-index: 1000;
+`;
+
+const CancelButton = styled.button`
+  width: 194px;
+  margin-bottom: 71px;
+  display: flex;
+  padding: 16px 0px;
+  justify-content: center;
+  align-items: center;
+  align-self: stretch;
+  border-radius: 50px;
+  border: 2px solid var(--color-gray-300);
+  background: rgba(255, 255, 255, 0.8);
+  color: var(--color-gray-400);
+  text-align: center;
+  font-family: LotteMartDream;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 14px; /* 87.5% */
+`;
+
+const Backdrop = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  width: 100vw;
+  height: 100vh;
+  z-index: 500;
+  background-color: rgba(255, 255, 255, 0.4);
+  backdrop-filter: blur(16px);
+  color: var(--color-gray-700);
+  text-align: center;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 150%;
 `;
