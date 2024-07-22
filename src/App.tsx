@@ -1,14 +1,16 @@
 import styled from "styled-components"
-
+import Login from "./pages/LoginPage/Login";
+import { Route, Routes, useLocation } from "react-router-dom";
 
 function App() {
   return (
     <Layout>
-    <div>dsa</div>
-    <div>dsa</div>
-    <div>dsa</div>
-    <div>dsa</div>
-    <div>dsa</div>
+   <Routes>
+      <Route path="/login" element={<Login/>}/>
+  
+
+   </Routes>
+    
     </Layout>
   );
 }
