@@ -193,7 +193,7 @@ const CredentialsInput = styled.input`
 `;
 
 const Credentials = styled.div`
-border-bottom: 1px solid #9D9D9D;
+border-bottom: 1px solid #F5F5F5;
   width: 100%;
   height: 40px;
   border: "none";

@@ -1,22 +1,23 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { Map } from 'react-kakao-maps-sdk';
-import { MyPositionMarker } from '../../../components/map/MyPositionMarker';
-import { Position } from '../../../types';
-import { useMyPositionHook } from '../../../hooks/useMyPositionHook';
-import { RequestCard } from '../../../components/RequestCard';
-import { ResetButton } from '../../../components/map/ResetButton';
+import { MyPositionMarker } from '../../components/map/MyPositionMarker';
+import { Position } from '../../types';
+import { useMyPositionHook } from '../../hooks/useMyPositionHook';
+import { RequestCard } from '../../components/RequestCard';
+import { ResetButton } from '../../components/map/ResetButton';
 
-export interface ResponserMainPageProps {}
+export interface RespondentMainPageProps {}
 
 const DefaultPosition: Position = {
   lat: 37.5665,
   lng: 126.978,
 };
 
-export const ResponserMainPage: React.FC<ResponserMainPageProps> = (props) => {
+export const RespondentMainPage: React.FC<RespondentMainPageProps> = (props) => {
   const [center, setCenter] = useState<Position>(DefaultPosition);
   const [isFirst, setIsFirst] = useState(true);
+  const [isEnable, setIsEnable] = useState(false);
 
   const myPosition = useMyPositionHook();
 
@@ -33,16 +34,24 @@ export const ResponserMainPage: React.FC<ResponserMainPageProps> = (props) => {
         center={center}
         onDragEnd={(map: any) => {
           const center = map.getCenter();
-          setCenter({lat: center.getLat(), lng: center.getLng()});
+          setCenter({ lat: center.getLat(), lng: center.getLng() });
         }}
         isPanto
       >
         {myPosition ? <MyPositionMarker position={myPosition} /> : null}
       </StyledMap>
+      {!isEnable ? <BlueOverlay /> : null}
       <Overlay>
-        <ResetButton onClick={() => {
-          setCenter(myPosition ?? DefaultPosition);
-        }} />
+        <ResetButton
+          onClick={() => {
+            setCenter(myPosition ?? DefaultPosition);
+          }}
+        />
+        <ResetButton
+          onClick={() => {
+            setIsEnable(!isEnable);
+          }}
+        />
         <RequestCard
           name="홍길동"
           info="저는 다리가 불편합니다"
@@ -63,6 +72,15 @@ const StyledMap = styled(Map)`
   width: 100vw;
   height: 100vh;
   position: absolute;
+`;
+
+const BlueOverlay = styled.div`
+  position: absolute;
+  width: 100vw;
+  height: 100vh;
+  z-index: 500;
+  background-color: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(16px);
 `;
 
 const Overlay = styled.div`

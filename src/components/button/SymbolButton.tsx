@@ -1,11 +1,13 @@
-import React from "react";
-import styled from "styled-components";
+import React from 'react';
+import styled from 'styled-components';
 
-interface SymbolProps {
-  label: string;
-}
-const SymbolButton: React.FC<SymbolProps> = ({ label }) => {
-  return <SymbolButtonContainer>{label}</SymbolButtonContainer>;
+interface SymbolProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {}
+const SymbolButton: React.FC<SymbolProps> = (props) => {
+  return (
+    <SymbolButtonContainer {...props}>
+      <img src="/img/icons/DoaduoLogo.svg" alt="도아듀오" />
+    </SymbolButtonContainer>
+  );
 };
 
 const SymbolButtonContainer = styled.button`
@@ -14,7 +16,7 @@ const SymbolButtonContainer = styled.button`
   align-items: center;
   width: 82px;
   height: 82px;
-  background-color: #ea4b04;
+  background-color: #ff8800;
   border: none;
   color: white;
   padding: 0px;

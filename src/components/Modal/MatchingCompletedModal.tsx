@@ -22,7 +22,7 @@ const MatchingCompletedModal: React.FC<MatchingCompletedModalProps> = ({
 const MatchingCompletedModalContainer = styled.div`
   display: flex;
   flex-direction: column;
-  width: 320px;
+  width: calc(100vw - 80px);
   height: 265px;
   background-color: white;
   justify-content: center;
@@ -50,7 +50,6 @@ const MatchResultMessage = styled.p`
   text-align: center;
   font-size: 18px;
   color: black;
-  font-family: "MyFont", sans-serif;
+  font-family: "MediumFont", sans-serif;
 `;
-
 export default MatchingCompletedModal;

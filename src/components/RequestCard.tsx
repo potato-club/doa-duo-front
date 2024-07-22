@@ -1,5 +1,5 @@
-import React from 'react';
-import styled from 'styled-components';
+import React from "react";
+import styled from "styled-components";
 
 export interface RequestCardProps {
   name: string;
@@ -14,28 +14,28 @@ export const RequestCard: React.FC<RequestCardProps> = (props) => {
       <Profile>
         <ProfileImage />
         <ProfileData>
-          <p>{props.name}님</p>
-          <p>{props.info}</p>
-          <p>{props.address}</p>
+          <NameData>{props.name}님</NameData>
+          <InfoData>{props.info}</InfoData>
+          <AddressData>{props.address}</AddressData>
         </ProfileData>
       </Profile>
-      <p>{props.content}</p>
+      <ContentData>{props.content}</ContentData>
       <ButtonWrapper>
-        <button
+        <YesButton
           onClick={() => {
-            console.log('수락');
+            console.log("수락");
           }}
         >
           수락
-        </button>
-        <button
+        </YesButton>
+        <NoButton
           title="거절"
           onClick={() => {
-            console.log('거절');
+            console.log("거절");
           }}
         >
           거절
-        </button>
+        </NoButton>
       </ButtonWrapper>
     </Container>
   );
@@ -55,6 +55,7 @@ const Container = styled.div`
 const Profile = styled.div`
   display: flex;
   align-items: center;
+  gap: 13px;
 `;
 
 const ProfileImage = styled.div`
@@ -76,5 +77,53 @@ const ProfileData = styled.div`
 
 const ButtonWrapper = styled.div`
   display: flex;
-  gap: 8px;
+  gap: 0px;
+`;
+
+const NameData = styled.p`
+  font-family: "BoldFont";
+  font-size: 16px;
+`;
+
+const InfoData = styled.p`
+  font-family: "MediumFont";
+  font-size: 12px;
+`;
+
+const AddressData = styled.p`
+  font-family: "LightFont";
+  font-size: 10px;
+`;
+
+const ContentData = styled.p`
+  font-family: "MediumFont";
+  font-size: 16px;
+`;
+
+const YesButton = styled.button`
+  font-family: "BoldFont";
+  font-size: 20px;
+  color: #ff8800;
+  width: 165px;
+  border: none;
+  border-right: 1px solid #d9d9d9;
+  background-color: white;
+  transition: background-color 0.3s;
+  &:hover {
+    opacity: 0.8; /* 마우스 오버 시 투명 */
+  }
+`;
+
+const NoButton = styled.button`
+  font-family: "BoldFont";
+  font-size: 20px;
+  color: #9d9d9d;
+  width: 165px;
+  border: none;
+  background-color: white;
+  border-left: 1px solid #d9d9d9;
+  transition: background-color 0.3s;
+  &:hover {
+    opacity: 0.8; /* 마우스 오버 시 투명 */
+  }
 `;

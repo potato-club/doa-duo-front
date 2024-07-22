@@ -22,7 +22,7 @@ const ModalBackdrop = styled.div<{ isOpen: boolean }>`
 const ModalContent = styled(animated.div)`
   width: 100%;
   max-width: 500px;
-  background: white;
+  background: linear-gradient(204deg, #F80 3.59%, #FFD769 76.11%);
   border-radius: 20px 20px 0 0;
   box-shadow: 0px -5px 15px rgba(0, 0, 0, 0.2);
   position: relative;
@@ -31,7 +31,7 @@ const ModalContent = styled(animated.div)`
 const DragHandle = styled.div`
   width: 140px;
   height: 7px;
-  background-color: #ccc;
+  background-color: #fff;
   border-radius: 3px;
   position: absolute;
   top: 11;
@@ -40,17 +40,15 @@ const DragHandle = styled.div`
   cursor: grab;
 `;
 
-interface SwipeableModalProps {
+interface MenuModalProps {
   isOpen: boolean;
   onClose: () => void;
-  children?: React.ReactNode;
   bottomOffset?: number;
 }
 
-export const SwipeableModal: React.FC<SwipeableModalProps> = ({
+export const MenuModal: React.FC<MenuModalProps> = ({
   isOpen,
   onClose,
-  children,
   bottomOffset,
 }) => {
   const [{ y }, api] = useSpring(() => ({ y: window.innerHeight }));
@@ -109,7 +107,7 @@ export const SwipeableModal: React.FC<SwipeableModalProps> = ({
         >
           <DragHandle />
         </div>
-        {children}
+        <div>asdf</div>
       </ModalContent>
     </ModalBackdrop>
   );
