@@ -5,7 +5,6 @@ import { RecoilRoot } from 'recoil';
 import SignUp from './pages/LoginPage/SignUp';
 import { ResponserMainPage } from './pages/Responser/ResponserMainPage';
 
-
 function App() {
   return (
     <RecoilRoot>
@@ -17,7 +16,6 @@ function App() {
           <Route path="/main" element={<Login />} />
 
           <Route path="/res-main" element={<ResponserMainPage />} />
-
         </Routes>
       </Layout>
     </RecoilRoot>
@@ -32,7 +30,10 @@ const Layout = styled.div`
   align-items: center;
   box-sizing: border-box;
   position: relative;
+  width: 100%;
+  height: 100%;
  @media(max-width: 425px) {
     width: 425px;
  }
+
 `;
