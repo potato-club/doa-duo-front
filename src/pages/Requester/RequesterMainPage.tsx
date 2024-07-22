@@ -1,20 +1,20 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { Map } from 'react-kakao-maps-sdk';
-import { MyPositionMarker } from '../../../components/map/MyPositionMarker';
-import { Position } from '../../../types';
-import { useMyPositionHook } from '../../../hooks/useMyPositionHook';
-import { RequestCard } from '../../../components/RequestCard';
-import { ResetButton } from '../../../components/map/ResetButton';
+import { Position } from '../../types';
+import { useMyPositionHook } from '../../hooks/useMyPositionHook';
+import { MyPositionMarker } from '../../components/map/MyPositionMarker';
+import { ResetButton } from '../../components/map/ResetButton';
+import { RequestFormSheet } from '../../components/RequestFormSheet';
 
-export interface ResponserMainPageProps {}
+export interface RequesterMainPageProps {}
 
 const DefaultPosition: Position = {
   lat: 37.5665,
   lng: 126.978,
 };
 
-export const ResponserMainPage: React.FC<ResponserMainPageProps> = (props) => {
+export const RequesterMainPage: React.FC<RequesterMainPageProps> = (props) => {
   const [center, setCenter] = useState<Position>(DefaultPosition);
   const [isFirst, setIsFirst] = useState(true);
   const [isEnable, setIsEnable] = useState(false);
@@ -40,24 +40,13 @@ export const ResponserMainPage: React.FC<ResponserMainPageProps> = (props) => {
       >
         {myPosition ? <MyPositionMarker position={myPosition} /> : null}
       </StyledMap>
-      {!isEnable ? <BlueOverlay /> : null}
       <Overlay>
         <ResetButton
           onClick={() => {
             setCenter(myPosition ?? DefaultPosition);
           }}
         />
-        <ResetButton
-          onClick={() => {
-            setIsEnable(!isEnable);
-          }}
-        />
-        <RequestCard
-          name="홍길동"
-          info="저는 다리가 불편합니다"
-          address="경기도 파주시 탄현면"
-          content="휠체어에 태워 주셨으면 합니다"
-        />
+        <RequestFormSheet />
       </Overlay>
     </Container>
   );
@@ -74,18 +63,8 @@ const StyledMap = styled(Map)`
   position: absolute;
 `;
 
-const BlueOverlay = styled.div`
-  position: absolute;
-  width: 100vw;
-  height: 100vh;
-  z-index: 500;
-  background-color: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(16px);
-`;
-
 const Overlay = styled.div`
   position: absolute;
   bottom: 0;
-  padding: 20px;
   z-index: 1000;
 `;

@@ -5,12 +5,12 @@ import { RecoilRoot } from "recoil";
 import SignUp from "./pages/LoginPage/SignUp";
 import { ResponserMainPage } from "./pages/Responser/ResponserMainPage";
 import MatchingCompletedModal from "./components/Modal/MatchingCompletedModal";
+import { RequesterMainPage } from "./pages/Requester/RequesterMainPage";
 
 function App() {
   return (
     <RecoilRoot>
       <Layout>
-        <MatchingCompletedModal username="1" />
         <Routes>
           <Route path="/login" element={<Login />} />
 
@@ -18,6 +18,7 @@ function App() {
           <Route path="/main" element={<Login />} />
 
           <Route path="/res-main" element={<ResponserMainPage />} />
+          <Route path="/req-main" element={<RequesterMainPage />} />
         </Routes>
       </Layout>
     </RecoilRoot>
