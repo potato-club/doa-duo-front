@@ -7,15 +7,25 @@ const SignUp: React.FC = () => {
   const [Pw , setPw] = useState('');
   const [CheckPw , setCheckPw] = useState('');
   const [isIdPwFilled , setisIdPwFilled] = useState(true);
-
+  const [isPwMismatch, setIsPwMismatch] = useState(false);
 
   const handleChange = (value: number) => {
     setSelectedValue(value);
   };
 
 useEffect(()=>{
-    setisIdPwFilled(!(Id && Pw));
-},[Id,Pw])
+    setisIdPwFilled(!(Id && Pw && CheckPw));
+},[Id,Pw,CheckPw])
+
+const handleCheckNewPWChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const CheckPw = e.target.value;
+    setCheckPw(CheckPw);
+    if (Pw !== CheckPw) {
+        setIsPwMismatch(true);
+    } else {
+        setIsPwMismatch(false);
+    }
+  };
 
 
   return (
@@ -80,11 +90,14 @@ useEffect(()=>{
               type="password"
               style={{ border: "none", borderRadius: "20px" }}
               value={CheckPw}
-              onChange={(e)=>{setCheckPw(e.target.value)}}
+              onChange={(e)=>{handleCheckNewPWChange(e)}}
             ></CredentialsInput>
           </Credentials>
         </IdPwLayout>
-      <LoginBTN disabled = {isIdPwFilled}>회원가입</LoginBTN>
+        {
+            isPwMismatch && <div>비밀번호가 일치하지 않습니다</div> 
+        }
+      <LoginBTN disabled = {isPwMismatch || isIdPwFilled}>회원가입</LoginBTN>
 
       </LoginForm>
 

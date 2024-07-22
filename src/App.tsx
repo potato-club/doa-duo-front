@@ -32,6 +32,7 @@ const Layout = styled.div`
   align-items: center;
   box-sizing: border-box;
   position: relative;
-  
- width: 100%
+ @media(max-width: 425px) {
+    width: 425px;
+ }
 `;

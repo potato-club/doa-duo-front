@@ -1,5 +1,6 @@
 import React, { useState, useEffect, ChangeEvent } from "react";
 import styled from "styled-components";
+import axios from "axios";
 
 const Login: React.FC = () => {
   const [selectedValue, setSelectedValue] = useState(1);
@@ -16,6 +17,22 @@ useEffect(()=>{
     setisIdPwFilled(!(Id && Pw));
 },[Id,Pw])
 
+
+  const handleSubmit=async()=>{
+
+    try{
+        const res = await axios.post('');
+        console.log(res);
+
+        const jwtToken = res.headers["at"];
+        localStorage.setItem("At", jwtToken);
+        const refreshToken =  res.headers["rt"];
+        localStorage.setItem("Rt", refreshToken);
+
+    }catch(error){
+      console.log(error);
+    }
+  }
 
   return (
     <LoginContainer>
@@ -67,7 +84,7 @@ useEffect(()=>{
             ></CredentialsInput>
           </Credentials>
         </IdPwLayout>
-      <LoginBTN disabled = {isIdPwFilled}>로그인</LoginBTN>
+      <LoginBTN disabled = {isIdPwFilled} onClick={handleSubmit}>로그인</LoginBTN>
 
       </LoginForm>
 
