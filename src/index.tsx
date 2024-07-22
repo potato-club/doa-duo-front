@@ -1,39 +1,62 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import { normalize } from 'styled-normalize';
-import { BrowserRouter } from 'react-router-dom';
-import App from './App';
-import * as serviceWorkerRegistration from './serviceWorkerRegistration';
-import reportWebVitals from './reportWebVitals';
-import { createGlobalStyle } from 'styled-components';
+import React from "react";
+import ReactDOM from "react-dom/client";
+import { normalize } from "styled-normalize";
+import { BrowserRouter } from "react-router-dom";
+import App from "./App";
+import * as serviceWorkerRegistration from "./serviceWorkerRegistration";
+import reportWebVitals from "./reportWebVitals";
+import { createGlobalStyle } from "styled-components";
 
 export const GlobalStyle = createGlobalStyle`
   ${normalize}
   html, body, #root {
     height: 100%;
   }
+
+
+  @font-face {
+    font-family: "MediumFont1"; /* 사용할 폰트 이름 */
+    src: url("/fonts/font1/12롯데마트행복Medium.ttf") format("truetype"); /* 폰트 파일 경로 */
+    font-weight: normal;
+    font-style: normal;
+  }
+
+  @font-face { 
+    font-family: "LightFont1"; /* 사용할 폰트 이름 */
+    src: url("/fonts/font1/12롯데마트행복Light.ttf") format("truetype"); /* 폰트 파일 경로 */
+    font-weight: normal;
+    font-style: normal;
+  }
+
+  @font-face {
+    font-family: "BoldFont1"; /* 사용할 폰트 이름 */
+    src: url("/fonts/font1/12롯데마트행복Bold.ttf") format("truetype"); /* 폰트 파일 경로 */
+    font-weight: normal;
+    font-style: normal;
+  }
+
+  @font-face {
+  font-family: 'MediumFont2';
+  font-style: normal;
+  font-weight: 400;
+  src: url('//fastly.jsdelivr.net/korean-webfonts/1/corps/lottemart/LotteMartDream/LotteMartDreamMedium.woff2') format('woff2'), url('//fastly.jsdelivr.net/korean-webfonts/1/corps/lottemart/LotteMartDream/LotteMartDreamMedium.woff') format('woff');
+}
+@font-face {
+  font-family: 'BoldFont2';
+  font-style: normal;
+  font-weight: 700;
+  src: url('//fastly.jsdelivr.net/korean-webfonts/1/corps/lottemart/LotteMartDream/LotteMartDreamBold.woff2') format('woff2'), url('//fastly.jsdelivr.net/korean-webfonts/1/corps/lottemart/LotteMartDream/LotteMartDreamBold.woff') format('woff');
+}
+@font-face {
+  font-family: 'LightFont2';
+  font-style: normal;
+  font-weight: 300;
+  src: url('//fastly.jsdelivr.net/korean-webfonts/1/corps/lottemart/LotteMartDream/LotteMartDreamLight.woff2') format('woff2'), url('//fastly.jsdelivr.net/korean-webfonts/1/corps/lottemart/LotteMartDream/LotteMartDreamLight.woff') format('woff');
+}
+.lottemartdream * {
+ font-family: 'LotteMartDream', sans-serif;
+}
   
-  @font-face {
-    font-family: "MediumFont"; /* 사용할 폰트 이름 */
-    src: url("/fonts/12롯데마트행복Medium.ttf") format("truetype"); /* 폰트 파일 경로 */
-    font-weight: normal;
-    font-style: normal;
-  }
-
-  @font-face {
-    font-family: "LightFont"; /* 사용할 폰트 이름 */
-    src: url("/fonts/12롯데마트행복Light.ttf") format("truetype"); /* 폰트 파일 경로 */
-    font-weight: normal;
-    font-style: normal;
-  }
-
-  @font-face {
-    font-family: "BoldFont"; /* 사용할 폰트 이름 */
-    src: url("/fonts/12롯데마트행복Bold.ttf") format("truetype"); /* 폰트 파일 경로 */
-    font-weight: normal;
-    font-style: normal;
-  }
-
   :root {
     --color-gray-100: #e9e9e9;
     --color-gray-200: #d9d9d9;
@@ -71,7 +94,7 @@ export const GlobalStyle = createGlobalStyle`
 `;
 
 const root = ReactDOM.createRoot(
-  document.getElementById('root') as HTMLElement
+  document.getElementById("root") as HTMLElement
 );
 root.render(
   <BrowserRouter>
