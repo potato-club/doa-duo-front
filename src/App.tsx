@@ -7,15 +7,15 @@ import { ResponserMainPage } from "./pages/Responser/ResponserMainPage";
 import Start from "./pages/LoginPage/Start";
 import useWindowSize from "./components/UsewindowSize";
 import SwipeableModal from "./components/SwipeableModal";
-import React, { useState } from "react";
+import React, { useState } from 'react';
 import { RequesterMainPage } from "./pages/Requester/RequesterMainPage";
 
 interface LayoutProps {
-  width: number;
+  width:number,
 }
 
 function App() {
-  const [isModalOpen, setIsModalOpen] = useState(true);
+  const [isModalOpen, setIsModalOpen] = useState( true);
 
   const openModal = () => {
     setIsModalOpen(true);
@@ -30,12 +30,12 @@ function App() {
   return (
     <RecoilRoot>
       <Layout width={width}>
-        <div>
-          <button onClick={openModal}>Open Modal</button>
-          <SwipeableModal isOpen={isModalOpen} onClose={closeModal} />
-        </div>
+      <div>
+      <button onClick={openModal}>Open Modal</button>
+      <SwipeableModal isOpen={isModalOpen} onClose={closeModal} />
+    </div>
         <Routes>
-          <Route path="/" element={<Start />} />
+        <Route path="/" element={<Start />} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<SignUp />} />
           <Route path="/main" element={<Login />} />
@@ -58,6 +58,6 @@ const Layout = styled.div<LayoutProps>`
   width: 100%;
   height: 100%;
   @media (max-width: 425px) {
-    width: ${(props) => props.width}px;
+    width: ${props => props.width}px;
   }
 `;
