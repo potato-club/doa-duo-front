@@ -5,8 +5,8 @@ import { useNavigate } from "react-router-dom";
 import useWindowSize from "../../components/UsewindowSize";
 import { jwtDecode } from "jwt-decode";
 
-interface LoginContainerProps  {
-  height: number,
+interface LoginContainerProps {
+  height: number;
 }
 
 const Login: React.FC = () => {
@@ -33,9 +33,9 @@ const Login: React.FC = () => {
       );
       console.log(res);
 
-      const jwtToken = res.headers["at"];
+      const jwtToken = res.data["at"];
       localStorage.setItem("At", jwtToken);
-      const refreshToken = res.headers["rt"];
+      const refreshToken = res.data["rt"];
       localStorage.setItem("Rt", refreshToken);
 
       const decoded = jwtDecode(jwtToken.split(" ")[1]);
@@ -49,43 +49,45 @@ const Login: React.FC = () => {
   };
 
   return (
-    <LoginContainer height={height} >
-      <Div>      <Logo><img src="/img/icons/LoginLogo.svg"/></Logo>
-      <LoginForm>
-        <IdPwLayout style={{ marginBottom: "7px" }}>
-          ID
-          <Credentials>
-            <CredentialsInput
-              placeholder="아이디"
-              style={{ border: "none", borderRadius: "20px" }}
-              value={Id}
-              onChange={(e) => setId(e.target.value)}
-            />
-          </Credentials>
-        </IdPwLayout>
+    <LoginContainer height={height}>
+      <Div>
+        <Logo>
+          <img src="/img/icons/LoginLogo.svg" />
+        </Logo>
+        <LoginForm>
+          <IdPwLayout style={{ marginBottom: "7px" }}>
+            ID
+            <Credentials>
+              <CredentialsInput
+                placeholder="아이디"
+                style={{ border: "none", borderRadius: "20px" }}
+                value={Id}
+                onChange={(e) => setId(e.target.value)}
+              />
+            </Credentials>
+          </IdPwLayout>
 
-        <IdPwLayout>
-          PW
-          <Credentials>
-            {" "}
-            <CredentialsInput
-              placeholder="비밀번호"
-              type="password"
-              style={{ border: "none", borderRadius: "20px" }}
-              value={Pw}
-              onChange={(e) => {
-                setPw(e.target.value);
-              }}
-            ></CredentialsInput>
-          </Credentials>
-        </IdPwLayout>
-       
-      </LoginForm>
+          <IdPwLayout>
+            PW
+            <Credentials>
+              {" "}
+              <CredentialsInput
+                placeholder="비밀번호"
+                type="password"
+                style={{ border: "none", borderRadius: "20px" }}
+                value={Pw}
+                onChange={(e) => {
+                  setPw(e.target.value);
+                }}
+              ></CredentialsInput>
+            </Credentials>
+          </IdPwLayout>
+        </LoginForm>
       </Div>
 
       <LoginBTN disabled={isIdPwFilled} onClick={handleSubmit}>
-          로그인
-        </LoginBTN>
+        로그인
+      </LoginBTN>
     </LoginContainer>
   );
 };
@@ -99,26 +101,20 @@ const LoginContainer = styled.div<LoginContainerProps>`
   align-items: center;
   justify-content: space-between;
   width: 100%;
-  height: ${props => props.height}px;
-
-
+  height: ${(props) => props.height}px;
 `;
 
 const Div = styled.div`
-
-    display:flex;
-    flex-direction: column;
-    align-items: center;
-
-
-`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
 
 const LoginForm = styled.div`
   width: 282px;
   display: flex;
   flex-direction: column;
 `;
-
 
 const IdPwLayout = styled.div`
   width: 100%;
@@ -162,9 +158,10 @@ const LoginBTN = styled.button`
 `;
 
 const Logo = styled.div`
-    width:178px;
-    height: 32px;
-    margin-bottom: 27px;
-    display: flex;
-   
+  width: 178px;
+  height: 32px;
+  margin-bottom: 27px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
