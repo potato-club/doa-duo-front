@@ -2,7 +2,9 @@ import styled from 'styled-components';
 import Login from './pages/LoginPage/Login';
 import { Route, Routes, useLocation } from 'react-router-dom';
 import { RecoilRoot } from 'recoil';
+import SignUp from './pages/LoginPage/SignUp';
 import { ResponserMainPage } from './pages/Responser/ResponserMainPage';
+
 
 function App() {
   return (
@@ -10,7 +12,12 @@ function App() {
       <Layout>
         <Routes>
           <Route path="/login" element={<Login />} />
+
+          <Route path="/signup" element={<SignUp />} />
+          <Route path="/main" element={<Login />} />
+
           <Route path="/res-main" element={<ResponserMainPage />} />
+
         </Routes>
       </Layout>
     </RecoilRoot>
@@ -24,4 +31,7 @@ const Layout = styled.div`
   flex-direction: column;
   align-items: center;
   box-sizing: border-box;
+  position: relative;
+  
+ width: 100%
 `;

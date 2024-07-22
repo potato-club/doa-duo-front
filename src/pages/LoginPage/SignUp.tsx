@@ -1,10 +1,11 @@
 import React, { useState, useEffect, ChangeEvent } from "react";
 import styled from "styled-components";
 
-const Login: React.FC = () => {
+const SignUp: React.FC = () => {
   const [selectedValue, setSelectedValue] = useState(1);
   const [Id , setId] = useState('');
   const [Pw , setPw] = useState('');
+  const [CheckPw , setCheckPw] = useState('');
   const [isIdPwFilled , setisIdPwFilled] = useState(true);
 
 
@@ -21,7 +22,7 @@ useEffect(()=>{
     <LoginContainer>
       <LoginForm>
         <Header>
-          <div>
+          <div style={{gap:'12px'}}>
             <StyledInput
               type="radio"
               value={1}
@@ -29,9 +30,9 @@ useEffect(()=>{
               onChange={() => handleChange(1)}
               name="role"
             />
-            헬퍼
+            헬퍼 회원가입
           </div>
-          <div>
+          <div style={{gap:'12px'}}>
             <StyledInput
               type="radio"
               value={2}
@@ -39,27 +40,29 @@ useEffect(()=>{
               onChange={() => handleChange(2)}
               name="role"
             />
-            요청자
+            요청자 회원가입
           </div>
         </Header>
         <IdPwLayout style={{ marginBottom: "7px" }}>
-          ID
+          아이디
           <Credentials>
             <CredentialsInput
-              placeholder="아이디"
+              placeholder="아이디를 입력해주세요"
               style={{ border: "none", borderRadius: "20px" }}
               value={Id}
               onChange={(e)=> setId(e.target.value)}
-            />
+            ></CredentialsInput>
+           <CheckBTN >중복확인</CheckBTN>
           </Credentials>
+          
         </IdPwLayout>
 
         <IdPwLayout>
-          PW
+          비밀번호
           <Credentials>
             {" "}
             <CredentialsInput
-              placeholder="비밀번호"
+              placeholder="비밀번호를 입력해주세요"
               type="password"
               style={{ border: "none", borderRadius: "20px" }}
               value={Pw}
@@ -67,7 +70,21 @@ useEffect(()=>{
             ></CredentialsInput>
           </Credentials>
         </IdPwLayout>
-      <LoginBTN disabled = {isIdPwFilled}>로그인</LoginBTN>
+
+        <IdPwLayout>
+          비밀번호 확인
+          <Credentials>
+            {" "}
+            <CredentialsInput
+              placeholder="비밀번호를 다시 한번 입력해주세요"
+              type="password"
+              style={{ border: "none", borderRadius: "20px" }}
+              value={CheckPw}
+              onChange={(e)=>{setCheckPw(e.target.value)}}
+            ></CredentialsInput>
+          </Credentials>
+        </IdPwLayout>
+      <LoginBTN disabled = {isIdPwFilled}>회원가입</LoginBTN>
 
       </LoginForm>
 
@@ -75,7 +92,7 @@ useEffect(()=>{
   );
 };
 
-export default Login;
+export default SignUp;
 
 const LoginContainer = styled.div`
   display: flex;
@@ -85,7 +102,7 @@ const LoginContainer = styled.div`
 `;
 
 const LoginForm = styled.div`
-  width: 282px;
+  width: 329px;
   display: flex;
   flex-direction: column;
 `;
@@ -95,7 +112,7 @@ const Header = styled.div`
   display: flex;
   gap: 20px;
   font-size: 12px;
-  margin-bottom: 20px;
+  margin-bottom: 29px;
   div {
     display: flex;
     align-items: center;
@@ -109,7 +126,6 @@ const StyledInput = styled.input.attrs({ type: 'radio' })`
   height: 30px;
   margin: 0;
   border: none;
-
   &:checked {
     accent-color: #FD7B28;
   }
@@ -118,29 +134,32 @@ const StyledInput = styled.input.attrs({ type: 'radio' })`
 const IdPwLayout = styled.div`
   width: 100%;
   display: flex;
-  flex-direction: row;
-  align-items: center;
+  flex-direction: column;
   justify-content: space-between;
   font-weight: bold;
+  margin: 10px 0;
 `;
 
 const CredentialsInput = styled.input`
-  padding: 0 20px;
   border: "none";
   outline: none;
   background-color: transparent;
+  width: 100%;
+
+  &::placeholder {
+    color: #9D9D9D;
+    font-size: 10px;
+  }
 `;
 
 const Credentials = styled.div`
-  background-color: #f2f2f2;
-  width: 230px;
+border-bottom: 1px solid #9D9D9D;
+  width: 100%;
   height: 40px;
   border: "none";
-  border-radius: 20px;
   outline: none;
   display: flex;
 `;
-
 
 
 const LoginBTN = styled.button`
@@ -155,4 +174,15 @@ const LoginBTN = styled.button`
   &:disabled {
     cursor: not-allowed;
   }
+`;
+
+const CheckBTN = styled.button`
+    align-items: center;
+    background-color: transparent;
+    border-radius: 14px ;
+    border: 2px solid #F80;
+    color: #F80;
+    width: 80px;
+    height: 38px;
+    font-size: 12px;
 `;
