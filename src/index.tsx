@@ -9,6 +9,9 @@ import { createGlobalStyle } from 'styled-components';
 
 export const GlobalStyle = createGlobalStyle`
   ${normalize}
+  html, body, #root {
+    height: 100%;
+  }
 `;
 
 const root = ReactDOM.createRoot(
