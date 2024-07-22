@@ -10,6 +10,7 @@ import Footer from '../../components/Footer';
 import { MenuModal } from '../../components/MenuModal';
 import { SwipeableModal } from '../../components/SwipeableModal';
 import MatchingCompletedModal from '../../components/Modal/MatchingCompletedModal';
+import axios from 'axios';
 
 export interface RequesterMainPageProps {}
 
@@ -32,6 +33,8 @@ export const RequesterMainPage: React.FC<RequesterMainPageProps> = (props) => {
     useState<Position>(DefaultPosition);
   const [isFirst, setIsFirst] = useState(true);
   const [address, setAddress] = useState('');
+  const [matchingKey, setMatchingKey] = useState('');
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const myPosition = useMyPositionHook();
 
@@ -56,6 +59,28 @@ export const RequesterMainPage: React.FC<RequesterMainPageProps> = (props) => {
     });
   }, [address, center.lat, center.lng]);
 
+  useEffect(() => {
+    if (status === Status.Pending) {
+      const interval = setInterval(async () => {
+        try {
+          const res = await axios.get(
+            `http://15.164.154.44:8081/api/util/status/${matchingKey}`
+          );
+
+          if (res.data.acceptState) {
+            //
+          }
+        } catch (error) {
+          console.log(error);
+        }
+
+        return () => {
+          clearInterval(interval);
+        };
+      }, 1000);
+    }
+  }, [matchingKey, status]);
+
   return (
     <Container>
       {status === Status.None || status === Status.Request ? (
@@ -67,9 +92,24 @@ export const RequesterMainPage: React.FC<RequesterMainPageProps> = (props) => {
         >
           <RequestForm
             currentAddress={address}
-            onSubmit={() => {
-              setRequestPosition(center);
-              setStatus(Status.Pending);
+            onSubmit={async (data) => {
+              try {
+                const res = await axios.post(
+                  'http://15.164.154.44:8081/api/util/request',
+                  {
+                    latitude: center.lat,
+                    longitude: center.lng,
+                    address: `${address} ${data.detailAddress}`,
+                    quickMessage: data.quickMessage,
+                  }
+                );
+
+                setMatchingKey(res.data);
+                setRequestPosition(center);
+                setStatus(Status.Pending);
+              } catch (error) {
+                console.log(error);
+              }
             }}
           />
         </SwipeableModal>
@@ -81,7 +121,9 @@ export const RequesterMainPage: React.FC<RequesterMainPageProps> = (props) => {
           요청 중입니다...
         </Backdrop>
       ) : null}
-      <CompleteWrapper><MatchingCompletedModal username='안호빈' /></CompleteWrapper>
+      {/* <CompleteWrapper>
+        <MatchingCompletedModal username="안호빈" />
+      </CompleteWrapper> */}
       <StyledMap
         center={center}
         onDragEnd={(map: any) => {
@@ -107,11 +149,11 @@ export const RequesterMainPage: React.FC<RequesterMainPageProps> = (props) => {
         ) : null}
       </StyledMap>
       <Overlay>
-        {/* <ResetButton
+        <ResetButton
           onClick={() => {
             setCenter(myPosition ?? DefaultPosition);
           }}
-        /> */}
+        />
         {status === Status.Pending ? (
           <CancelButton onClick={() => setStatus(Status.None)}>
             취소하기
@@ -120,15 +162,14 @@ export const RequesterMainPage: React.FC<RequesterMainPageProps> = (props) => {
         {status !== Status.Pending ? (
           <Footer
             onMenuClick={(event) => {
-              // event.stopPropagation();
-              // setIsRequestModalOpen((prev) => !prev);
+              setIsRequestModalOpen((prev) => !prev);
             }}
           />
         ) : null}
       </Overlay>
-      {/* <MenuModal
-        isOpen={isRequestModalOpen}
-        onClose={() => setIsRequestModalOpen(false)}
+      <MenuModal
+        isOpen={isMenuOpen}
+        onClose={() => setIsMenuOpen(false)}
         bottomOffset={65}
       /> */}
     </Container>
@@ -202,4 +243,4 @@ const CompleteWrapper = styled.div`
   justify-content: center;
   padding-top: 56px;
   z-index: 1000;
-`
+`;
