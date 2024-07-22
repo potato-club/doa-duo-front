@@ -98,6 +98,7 @@ const LoginContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   width: 100%;
 `;
 
@@ -122,13 +123,28 @@ const Header = styled.div`
 `;
 
 const StyledInput = styled.input.attrs({ type: 'radio' })`
+  appearance: none;
   width: 30px;
   height: 30px;
   margin: 0;
-  border: none;
+  border: 2px solid #d9d9d9;
+  border-radius: 50%;
+  background-color: #fff;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 
   &:checked {
-    accent-color: #FD7B28;
+    background-color: #fff;
+
+  }
+
+  &:checked::after {
+    content: '';
+    width:20px;
+    height:20px;
+    background-color: #ff8800;
+    border-radius: 50%;
   }
 `;
 
@@ -146,6 +162,7 @@ const CredentialsInput = styled.input`
   border: "none";
   outline: none;
   background-color: transparent;
+  font-size: 10px;
 `;
 
 const Credentials = styled.div`
