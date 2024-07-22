@@ -44,7 +44,7 @@ const Login: React.FC = () => {
 
   return (
     <LoginContainer height={height} >
-      <div>      <Logo><img src="/img/icons/LoginLogo.svg"/></Logo>
+      <Div>      <Logo><img src="/img/icons/LoginLogo.svg"/></Logo>
       <LoginForm>
         <IdPwLayout style={{ marginBottom: "7px" }}>
           ID
@@ -75,7 +75,7 @@ const Login: React.FC = () => {
         </IdPwLayout>
        
       </LoginForm>
-      </div>
+      </Div>
 
       <LoginBTN disabled={isIdPwFilled} onClick={handleSubmit}>
           로그인
@@ -94,7 +94,18 @@ const LoginContainer = styled.div<LoginContainerProps>`
   justify-content: space-between;
   width: 100%;
   height: ${props => props.height}px;
+
+
 `;
+
+const Div = styled.div`
+
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+
+
+`
 
 const LoginForm = styled.div`
   width: 282px;
@@ -148,4 +159,6 @@ const Logo = styled.div`
     width:178px;
     height: 32px;
     margin-bottom: 27px;
+    display: flex;
+   
 `;

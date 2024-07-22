@@ -1,30 +1,33 @@
 import { useState, useEffect } from 'react';
 
 function useWindowSize() {
-
   const [windowSize, setWindowSize] = useState({
-    width: window.innerWidth,
-    height: window.innerHeight,
+    width: window.visualViewport!.width,
+    height: window.visualViewport!.height,
   });
 
   useEffect(() => {
-
+    // Function to update window size
     function handleResize() {
       setWindowSize({
-        width: window.innerWidth,
-        height: window.innerHeight,
+        width: window.visualViewport!.width,
+        height: window.visualViewport!.height,
       });
     }
 
+    // Add event listeners for visual viewport changes
+    window.visualViewport!.addEventListener('resize', handleResize);
+    window.visualViewport!.addEventListener('scroll', handleResize);
 
-    window.addEventListener('resize', handleResize);
-
-   
+    // Initial update
     handleResize();
 
-
-    return () => window.removeEventListener('resize', handleResize);
-  }, []); 
+    // Cleanup event listeners on component unmount
+    return () => {
+      window.visualViewport!.removeEventListener('resize', handleResize);
+      window.visualViewport!.removeEventListener('scroll', handleResize);
+    };
+  }, []);
 
   return windowSize;
 }
