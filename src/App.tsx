@@ -10,7 +10,7 @@ import Header from "./components/Header";
 import { useEffect, useState } from "react";
 import React from 'react';
 import { RequesterMainPage } from "./pages/Requester/RequesterMainPage";
-
+import CardContainer from "./components/CardContainer";
 
 interface LayoutProps {
   width:number,
@@ -18,22 +18,15 @@ interface LayoutProps {
 
 function App() {
   const { width, height } = useWindowSize();
-  const location = useLocation();
-  const [isHeaderContain, setisHeaderContain] = useState(false);
-  
-  useEffect(() => {
-    setisHeaderContain(location.pathname.includes("/header"));
-  }, [location]);
 
   return (
     <RecoilRoot>
 
       <Layout width={width}>
-
-        {isHeaderContain && <Header backgroundcolor="#FFD769"/>}
         <Routes>
         <Route path="/" element={<Start />} />
           <Route path="/header/login" element={<Login />} />
+          <Route path="/header/Card" element={<CardContainer />} />
           <Route path="/header/signup" element={<SignUp />} />
           <Route path="/res-main" element={<RespondentMainPage />} />
           <Route path="/header/main" element={<RespondentMainPage />} />

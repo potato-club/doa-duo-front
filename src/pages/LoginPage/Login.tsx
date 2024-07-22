@@ -1,44 +1,51 @@
 import React, { useState, useEffect, ChangeEvent } from "react";
 import styled from "styled-components";
 import axios from "axios";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
+import useWindowSize from "../../components/UsewindowSize";
+
+interface LoginContainerProps  {
+  height: number,
+}
 
 const Login: React.FC = () => {
-  const [Id , setId] = useState('');
-  const [Pw , setPw] = useState('');
-  const [isIdPwFilled , setisIdPwFilled] = useState(true);
+  const [Id, setId] = useState("");
+  const [Pw, setPw] = useState("");
+  const [isIdPwFilled, setisIdPwFilled] = useState(true);
   const navigate = useNavigate();
+  const { width, height } = useWindowSize();
 
-useEffect(()=>{
+  useEffect(() => {
     setisIdPwFilled(!(Id && Pw));
-},[Id,Pw])
+  }, [Id, Pw]);
 
-
-  const handleSubmit=async()=>{
-
+  const handleSubmit = async () => {
     const data = {
       email: Id,
       password: Pw,
     };
 
-    try{
-        const res = await axios.post('http://15.164.154.44:8081/api/user/login', data);
-        console.log(res);
+    try {
+      const res = await axios.post(
+        "http://15.164.154.44:8081/api/user/login",
+        data
+      );
+      console.log(res);
 
-        const jwtToken = res.headers["at"];
-        localStorage.setItem("At", jwtToken);
-        const refreshToken =  res.headers["rt"];
-        localStorage.setItem("Rt", refreshToken);
-        navigate('/header/main')
-    }catch(error){
+      const jwtToken = res.headers["at"];
+      localStorage.setItem("At", jwtToken);
+      const refreshToken = res.headers["rt"];
+      localStorage.setItem("Rt", refreshToken);
+      navigate("/header/main");
+    } catch (error) {
       console.log(error);
     }
-  }
+  };
 
   return (
-    <LoginContainer>
+    <LoginContainer height={height} >
+      <div>      <Logo><img src="/img/icons/LoginLogo.svg"/></Logo>
       <LoginForm>
-
         <IdPwLayout style={{ marginBottom: "7px" }}>
           ID
           <Credentials>
@@ -46,7 +53,7 @@ useEffect(()=>{
               placeholder="아이디"
               style={{ border: "none", borderRadius: "20px" }}
               value={Id}
-              onChange={(e)=> setId(e.target.value)}
+              onChange={(e) => setId(e.target.value)}
             />
           </Credentials>
         </IdPwLayout>
@@ -60,27 +67,33 @@ useEffect(()=>{
               type="password"
               style={{ border: "none", borderRadius: "20px" }}
               value={Pw}
-              onChange={(e)=>{setPw(e.target.value)}}
+              onChange={(e) => {
+                setPw(e.target.value);
+              }}
             ></CredentialsInput>
           </Credentials>
         </IdPwLayout>
-      <LoginBTN disabled = {isIdPwFilled} onClick={handleSubmit}>로그인</LoginBTN>
-
+       
       </LoginForm>
+      </div>
 
+      <LoginBTN disabled={isIdPwFilled} onClick={handleSubmit}>
+          로그인
+        </LoginBTN>
     </LoginContainer>
   );
 };
 
 export default Login;
 
-const LoginContainer = styled.div`
-margin-top: 65.5px;
+const LoginContainer = styled.div<LoginContainerProps>`
+  margin-top: 65.5px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
   width: 100%;
+  height: ${props => props.height}px;
 `;
 
 const LoginForm = styled.div`
@@ -89,46 +102,6 @@ const LoginForm = styled.div`
   flex-direction: column;
 `;
 
-const Header = styled.div`
-  width: 100%;
-  display: flex;
-  gap: 20px;
-  font-size: 12px;
-  margin-bottom: 20px;
-  margin-top: 65.5px ;
-  div {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-  }
-`;
-
-const StyledInput = styled.input.attrs({ type: 'radio' })`
-  appearance: none;
-  width: 30px;
-  height: 30px;
-  margin: 0;
-  border: 2px solid #d9d9d9;
-  border-radius: 50%;
-  background-color: #fff;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-
-  &:checked {
-    background-color: #fff;
-
-  }
-
-  &:checked::after {
-    content: '';
-    width:20px;
-    height:20px;
-    background-color: #ff8800;
-    border-radius: 50%;
-  }
-`;
 
 const IdPwLayout = styled.div`
   width: 100%;
@@ -157,8 +130,6 @@ const Credentials = styled.div`
   display: flex;
 `;
 
-
-
 const LoginBTN = styled.button`
   background-color: ${({ disabled }) => (disabled ? "#ccc" : "#FD7B28")};
   color: ${({ disabled }) => (disabled ? "#858585" : "white")};
@@ -171,4 +142,10 @@ const LoginBTN = styled.button`
   &:disabled {
     cursor: not-allowed;
   }
+`;
+
+const Logo = styled.div`
+    width:178px;
+    height: 32px;
+    margin-bottom: 27px;
 `;

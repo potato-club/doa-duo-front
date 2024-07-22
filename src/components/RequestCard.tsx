@@ -6,6 +6,7 @@ export interface RequestCardProps {
   info: string;
   address: string;
   content: string;
+  onReject: () => void;
 }
 
 export const RequestCard: React.FC<RequestCardProps> = (props) => {
@@ -30,9 +31,7 @@ export const RequestCard: React.FC<RequestCardProps> = (props) => {
         </YesButton>
         <NoButton
           title="거절"
-          onClick={() => {
-            console.log("거절");
-          }}
+          onClick={props.onReject}
         >
           거절
         </NoButton>
@@ -47,9 +46,11 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: calc(100vw - 80px);
+  width: 330px;
   padding: 20px;
   border-radius: 16px;
+  height: 241px;
+  justify-content: space-between;
 `;
 
 const Profile = styled.div`
@@ -77,7 +78,7 @@ const ProfileData = styled.div`
 
 const ButtonWrapper = styled.div`
   display: flex;
-  gap: 0px;
+  align-items: baseline;
 `;
 
 const NameData = styled.p`
@@ -110,7 +111,7 @@ const YesButton = styled.button`
   background-color: white;
   transition: background-color 0.3s;
   &:hover {
-    opacity: 0.8; /* 마우스 오버 시 투명 */
+    opacity: 0.8;
   }
 `;
 
@@ -124,6 +125,6 @@ const NoButton = styled.button`
   border-left: 1px solid #d9d9d9;
   transition: background-color 0.3s;
   &:hover {
-    opacity: 0.8; /* 마우스 오버 시 투명 */
+    opacity: 0.8;
   }
 `;

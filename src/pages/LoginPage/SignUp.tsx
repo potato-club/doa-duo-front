@@ -46,6 +46,7 @@ const handleCheckNewPWChange = (e: ChangeEvent<HTMLInputElement>) => {
 
   return (
     <LoginContainer>
+     <Logo><img src="/img/icons/LoginLogo.svg"/></Logo>
       <LoginForm>
         <Header>
           <div style={{gap:'12px'}}>
@@ -123,9 +124,9 @@ const handleCheckNewPWChange = (e: ChangeEvent<HTMLInputElement>) => {
         {
             isPwMismatch && <div>비밀번호가 일치하지 않습니다</div> 
         }
-      <LoginBTN disabled = {isPwMismatch || isIdPwFilled } onClick={handleSignUp}>회원가입</LoginBTN>
 
       </LoginForm>
+      <LoginBTN disabled = {isPwMismatch || isIdPwFilled } onClick={handleSignUp}>회원가입</LoginBTN>
 
     </LoginContainer>
   );
@@ -165,12 +166,30 @@ const StyledInput = styled.input.attrs({ type: 'radio' })`
   width: 30px;
   height: 30px;
   margin: 0;
-  border: none;
-  &:checked {
-    accent-color: #FD7B28;
+  border: 2px solid #ccc; 
+  border-radius: 50%; 
+  appearance: none; 
+  position: relative; 
+
+
+  &::before {
+    content: "";
+    display: block;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: white;
+    position: absolute;
+    top: 50%; 
+    left: 50%;
+    transform: translate(-50%, -50%); 
+    transition: background-color 0.2s ease;
+  }
+
+  &:checked::before {
+    background-color: #FD7B28; 
   }
 `;
-
 const IdPwLayout = styled.div`
   width: 100%;
   display: flex;
@@ -216,13 +235,10 @@ const LoginBTN = styled.button`
   }
 `;
 
-const CheckBTN = styled.button`
-    align-items: center;
-    background-color: transparent;
-    border-radius: 14px ;
-    border: 2px solid #F80;
-    color: #F80;
-    width: 80px;
-    height: 38px;
-    font-size: 12px;
+
+
+const Logo = styled.div`
+    width:178px;
+    height: 32px;
+    margin-bottom: 27px;
 `;

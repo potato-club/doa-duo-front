@@ -57,6 +57,7 @@ export const RespondentMainPage: React.FC<RespondentMainPageProps> = (props) => 
           info="저는 다리가 불편합니다"
           address="경기도 파주시 탄현면"
           content="휠체어에 태워 주셨으면 합니다"
+          onReject={() => {}} // 비워둠
         />
       </Overlay>
     </Container>
