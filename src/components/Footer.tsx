@@ -1,9 +1,12 @@
-import React, { FC } from "react";
+import React, { FC, MouseEventHandler } from "react";
 import styled from "styled-components";
 import SymbolButton from "./button/SymbolButton";
 
-interface FooterProps {}
-const Footer: React.FC<FooterProps> = () => {
+interface FooterProps {
+  onMenuClick?: MouseEventHandler<HTMLButtonElement>
+}
+
+const Footer: React.FC<FooterProps> = (props) => {
   return (
     <Container>
       <MessageButton>
@@ -12,7 +15,7 @@ const Footer: React.FC<FooterProps> = () => {
       <ReviewButton>
         <img src="/img/icons/ReviewLogo.svg" alt="리뷰" />
       </ReviewButton>
-      <SymbolButton></SymbolButton>
+      <SymbolButton onClick={props.onMenuClick} />
       <HistoryButton>
         <img src="/img/icons/HistoryLogo.svg" alt="히스토리" />
       </HistoryButton>
@@ -29,10 +32,9 @@ const Container = styled.div`
   display: flex;
   justify-content: space-around;
   align-items: center;
-  width: 100%;
+  width: 100vw;
   height: 65px;
   position: relative;
-  transform: translateY(-100%);
 `;
 
 const MessageButton = styled.button`

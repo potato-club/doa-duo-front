@@ -4,7 +4,7 @@ import { TextField } from './TextField';
 
 export interface RequestFormSheetProps {}
 
-export const RequestFormSheet: React.FC<RequestFormSheetProps> = (props) => {
+export const RequestForm: React.FC<RequestFormSheetProps> = (props) => {
   return (
     <Container>
       <Title>여기로 부를까요?</Title>
@@ -17,15 +17,10 @@ export const RequestFormSheet: React.FC<RequestFormSheetProps> = (props) => {
 
 const Container = styled.div`
   display: flex;
-  width: 100%;
-  padding: 55px 42px;
+  padding: 0px 42px 24px 42px;
   flex-direction: column;
   align-items: center;
   gap: 10px;
-  flex-shrink: 0;
-  background-color: white;
-  border-radius: 25px 25px 0px 0px;
-  box-shadow: 0px -2px 7px 0px rgba(0, 0, 0, 0.25);
 `;
 
 const Title = styled.h2`
@@ -35,6 +30,7 @@ const Title = styled.h2`
   font-style: normal;
   font-weight: 400;
   line-height: normal;
+  margin: 0px;
 `;
 
 const StyledTextField = styled(TextField)`

@@ -1,10 +1,10 @@
-import React from "react";
-import styled from "styled-components";
+import React from 'react';
+import styled from 'styled-components';
 
-interface SymbolProps {}
-const SymbolButton: React.FC<SymbolProps> = () => {
+interface SymbolProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {}
+const SymbolButton: React.FC<SymbolProps> = (props) => {
   return (
-    <SymbolButtonContainer>
+    <SymbolButtonContainer {...props}>
       <img src="/img/icons/DoaduoLogo.svg" alt="도아듀오" />
     </SymbolButtonContainer>
   );

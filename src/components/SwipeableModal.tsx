@@ -14,15 +14,14 @@ const ModalBackdrop = styled.div<{ isOpen: boolean }>`
   align-items: flex-end;
   justify-content: center;
   transition: opacity 0.3s;
-  opacity: ${props => (props.isOpen ? 1 : 0)};
-  pointer-events: ${props => (props.isOpen ? 'auto' : 'none')};
+  opacity: ${(props) => (props.isOpen ? 1 : 0)};
+  pointer-events: ${(props) => (props.isOpen ? 'auto' : 'none')};
   z-index: 1000;
 `;
 
 const ModalContent = styled(animated.div)`
   width: 100%;
   max-width: 500px;
-  height: 80%;
   background: white;
   border-radius: 20px 20px 0 0;
   box-shadow: 0px -5px 15px rgba(0, 0, 0, 0.2);
@@ -35,7 +34,7 @@ const DragHandle = styled.div`
   background-color: #ccc;
   border-radius: 3px;
   position: absolute;
-  top: 0;
+  top: 11;
   left: 50%;
   transform: translateX(-50%);
   cursor: grab;
@@ -44,9 +43,16 @@ const DragHandle = styled.div`
 interface SwipeableModalProps {
   isOpen: boolean;
   onClose: () => void;
+  children?: React.ReactNode;
+  bottomOffset?: number;
 }
 
-const SwipeableModal: React.FC<SwipeableModalProps> = ({ isOpen, onClose }) => {
+const SwipeableModal: React.FC<SwipeableModalProps> = ({
+  isOpen,
+  onClose,
+  children,
+  bottomOffset
+}) => {
   // Initial y value is set to window.innerHeight to hide the modal initially
   const [{ y }, api] = useSpring(() => ({ y: window.innerHeight }));
 
@@ -57,12 +63,16 @@ const SwipeableModal: React.FC<SwipeableModalProps> = ({ isOpen, onClose }) => {
 
   // Close the modal with velocity
   const closeModal = (velocity = 0) => {
-    api.start({ y: window.innerHeight, config: { velocity }, onRest: () => onClose() });
+    api.start({
+      y: window.innerHeight,
+      config: { velocity },
+      onRest: () => onClose(),
+    });
   };
 
   // Handle drag for modal swipe
   const handleDrag = useDrag(
-    (state:any) => {
+    (state: any) => {
       const { last, velocity, movement, cancel } = state;
       const vy = velocity[1];
       const my = movement[1];
@@ -93,14 +103,15 @@ const SwipeableModal: React.FC<SwipeableModalProps> = ({ isOpen, onClose }) => {
     } else {
       closeModal();
     }
-  }, [isOpen]);
+  }, [closeModal, isOpen, openModal]);
 
   return (
     <ModalBackdrop isOpen={isOpen} onClick={isOpen ? onClose : undefined}>
-      <ModalContent style={{ y }} onClick={(e) => e.stopPropagation()}>
-        <DragHandle {...handleDrag()} />
-        <div style={{ padding: '20px' }}>
+      <ModalContent style={{ y, paddingBottom: bottomOffset }} onClick={(e) => e.stopPropagation()}>
+        <div style={{ paddingTop: '11px', paddingBottom: '37px' }}>
+          <DragHandle {...handleDrag()} />
         </div>
+        {children}
       </ModalContent>
     </ModalBackdrop>
   );

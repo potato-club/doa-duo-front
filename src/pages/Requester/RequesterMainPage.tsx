@@ -5,7 +5,9 @@ import { Position } from '../../types';
 import { useMyPositionHook } from '../../hooks/useMyPositionHook';
 import { MyPositionMarker } from '../../components/map/MyPositionMarker';
 import { ResetButton } from '../../components/map/ResetButton';
-import { RequestFormSheet } from '../../components/RequestFormSheet';
+import { RequestForm } from '../../components/RequestForm';
+import Footer from '../../components/Footer';
+import SwipeableModal from '../../components/SwipeableModal';
 
 export interface RequesterMainPageProps {}
 
@@ -17,7 +19,7 @@ const DefaultPosition: Position = {
 export const RequesterMainPage: React.FC<RequesterMainPageProps> = (props) => {
   const [center, setCenter] = useState<Position>(DefaultPosition);
   const [isFirst, setIsFirst] = useState(true);
-  const [isEnable, setIsEnable] = useState(false);
+  const [isRequestModalOpen, setIsRequestModalOpen] = useState(false);
 
   const myPosition = useMyPositionHook();
 
@@ -30,6 +32,13 @@ export const RequesterMainPage: React.FC<RequesterMainPageProps> = (props) => {
 
   return (
     <Container>
+      <SwipeableModal
+        isOpen={isRequestModalOpen}
+        onClose={() => setIsRequestModalOpen(false)}
+        bottomOffset={65}
+      >
+        <RequestForm />
+      </SwipeableModal>
       <StyledMap
         center={center}
         onDragEnd={(map: any) => {
@@ -46,7 +55,12 @@ export const RequesterMainPage: React.FC<RequesterMainPageProps> = (props) => {
             setCenter(myPosition ?? DefaultPosition);
           }}
         />
-        <RequestFormSheet />
+        <Footer
+          onMenuClick={(event) => {
+            event.stopPropagation();
+            setIsRequestModalOpen((prev) => !prev);
+          }}
+        />
       </Overlay>
     </Container>
   );
