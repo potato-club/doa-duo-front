@@ -1,14 +1,16 @@
-import styled from 'styled-components';
-import Login from './pages/LoginPage/Login';
-import { Route, Routes, useLocation } from 'react-router-dom';
-import { RecoilRoot } from 'recoil';
-import SignUp from './pages/LoginPage/SignUp';
-import { ResponserMainPage } from './pages/Responser/ResponserMainPage';
+import styled from "styled-components";
+import Login from "./pages/LoginPage/Login";
+import { Route, Routes, useLocation } from "react-router-dom";
+import { RecoilRoot } from "recoil";
+import SignUp from "./pages/LoginPage/SignUp";
+import { ResponserMainPage } from "./pages/Responser/ResponserMainPage";
+import MatchingCompletedModal from "./components/Modal/MatchingCompletedModal";
 
 function App() {
   return (
     <RecoilRoot>
       <Layout>
+        <MatchingCompletedModal username="1" />
         <Routes>
           <Route path="/login" element={<Login />} />
 
@@ -32,8 +34,7 @@ const Layout = styled.div`
   position: relative;
   width: 100%;
   height: 100%;
- @media(max-width: 425px) {
+  @media (max-width: 425px) {
     width: 425px;
- }
-
+  }
 `;
