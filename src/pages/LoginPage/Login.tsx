@@ -125,6 +125,7 @@ const CredentialsInput = styled.input`
   outline: none;
   background-color: transparent;
   font-size: 10px;
+  width: 100%;
 `;
 
 const Credentials = styled.div`
