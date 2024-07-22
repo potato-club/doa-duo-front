@@ -98,6 +98,7 @@ const LoginContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   width: 100%;
 `;
 
@@ -146,6 +147,7 @@ const CredentialsInput = styled.input`
   border: "none";
   outline: none;
   background-color: transparent;
+  font-size: 10px;
 `;
 
 const Credentials = styled.div`
