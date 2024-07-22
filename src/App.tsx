@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import Login from './pages/LoginPage/Login';
 import { Route, Routes, useLocation } from 'react-router-dom';
 import { RecoilRoot } from 'recoil';
+import { ResponserMainPage } from './pages/Responser/ResponserMainPage';
 
 function App() {
   return (
@@ -9,7 +10,7 @@ function App() {
       <Layout>
         <Routes>
           <Route path="/login" element={<Login />} />
-          <Route path="/main" element={<Login />} />
+          <Route path="/res-main" element={<ResponserMainPage />} />
         </Routes>
       </Layout>
     </RecoilRoot>
