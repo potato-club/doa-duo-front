@@ -1,19 +1,24 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import { BrowserRouter } from "react-router-dom";
+import { normalize } from 'styled-normalize';
+import { BrowserRouter } from 'react-router-dom';
 import App from './App';
 import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 import reportWebVitals from './reportWebVitals';
-import './index.css';
+import { createGlobalStyle } from 'styled-components';
+
+export const GlobalStyle = createGlobalStyle`
+  ${normalize}
+`;
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 root.render(
-<BrowserRouter>   
-<App />
-</BrowserRouter>
- 
+  <BrowserRouter>
+    <GlobalStyle />
+    <App />
+  </BrowserRouter>
 );
 
 // If you want your app to work offline and load faster, you can change
