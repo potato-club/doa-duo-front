@@ -1,6 +1,13 @@
 import React, { useState, useEffect, ChangeEvent } from "react";
 import styled from "styled-components";
 import axios from "axios";
+import useWindowSize from "../../components/UsewindowSize";
+import { useNavigate } from "react-router-dom";
+
+interface LoginContainerProps {
+  height: number;
+}
+
 const SignUp: React.FC = () => {
   const [selectedValue, setSelectedValue] = useState('');
   const [Id , setId] = useState('');
@@ -9,7 +16,8 @@ const SignUp: React.FC = () => {
   const [CheckPw , setCheckPw] = useState('');
   const [isIdPwFilled , setisIdPwFilled] = useState(true);
   const [isPwMismatch, setIsPwMismatch] = useState(false);
-
+  const navigate = useNavigate();
+  const { width, height } = useWindowSize();
   const handleChange = (value: string) => {
     setSelectedValue(value);
   };
@@ -37,6 +45,9 @@ const handleCheckNewPWChange = (e: ChangeEvent<HTMLInputElement>) => {
     };
     try{
       const res = await axios.post('http://15.164.154.44:8081/api/user/signup',data);
+      if(res.status === 200){
+        navigate('/login')
+      }
       console.log(res);
     }catch(error){
       console.log(error);
@@ -45,8 +56,8 @@ const handleCheckNewPWChange = (e: ChangeEvent<HTMLInputElement>) => {
   }
 
   return (
-    <LoginContainer>
-     <Logo><img src="/img/icons/LoginLogo.svg"/></Logo>
+    <LoginContainer height={height}>
+      <Div>     <Logo><img src="/img/icons/LoginLogo.svg"/></Logo>
       <LoginForm>
         <Header>
           <div style={{gap:'12px'}}>
@@ -126,6 +137,9 @@ const handleCheckNewPWChange = (e: ChangeEvent<HTMLInputElement>) => {
         }
 
       </LoginForm>
+
+      </Div>
+
       <LoginBTN disabled = {isPwMismatch || isIdPwFilled } onClick={handleSignUp}>회원가입</LoginBTN>
 
     </LoginContainer>
@@ -134,12 +148,14 @@ const handleCheckNewPWChange = (e: ChangeEvent<HTMLInputElement>) => {
 
 export default SignUp;
 
-const LoginContainer = styled.div`
+const LoginContainer = styled.div<LoginContainerProps>`
+  margin-top: 65.5px;
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: space-between;
   width: 100%;
-  margin-top: 65.5px;
+  height: ${(props) => props.height}px;
 `;
 
 const LoginForm = styled.div`
@@ -241,4 +257,15 @@ const Logo = styled.div`
     width:178px;
     height: 32px;
     margin-bottom: 27px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+
+`;
+
+const Div = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 `;
