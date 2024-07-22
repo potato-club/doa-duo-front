@@ -18,11 +18,11 @@ const Start: React.FC = () => {
 
   return (
     <LoginContainer width={width} height={height}>
-        <Logo></Logo>
+        <Logo><img src="/img/icons/Logo.svg"/></Logo>
  <p>도와듀오가 처음이신가요?</p>
 
- <StyledBTN to="/login" width={183} height={39}>기존 회원 로그인하기</StyledBTN>
- <StyledBTN to="/signup" width={121} height={39}>회원가입하기</StyledBTN>
+ <StyledBTN to="/header/login" width={183} height={39}>기존 회원 로그인하기</StyledBTN>
+ <StyledBTN to="/header/signup" width={183} height={39}>신규 회원 가입하기</StyledBTN>
   </LoginContainer>
   );
 };
@@ -52,20 +52,29 @@ margin-bottom: 67.5px;
 const Logo = styled.div`
     width:156px;
     height:156px;
-    background-color: gray;
+    background-color: transparent;
     border-radius: 78px;
     margin-bottom: 29px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    img{
+        width: 100%;
+        height: 100%;
+    }
 `;
 
 const StyledBTN = styled(Link)<StyledBTNProps>`
     width: ${props => props.width}px;
     height: ${props => props.height}px;
     border: none;
-    background-color:#E0E0E0;
+    background-color: #FFEDBB;
     display: inline-flex;
+font-size: 11px;
   align-items: center;
   justify-content: center;
   text-decoration: none;
-  color: inherit;
+  color: #FF8800;
   margin-bottom: 7.5px;
+  border-radius: 20px;
 `;

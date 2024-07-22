@@ -1,17 +1,13 @@
 import React, { useState, useEffect, ChangeEvent } from "react";
 import styled from "styled-components";
 import axios from "axios";
+import { useNavigate } from 'react-router-dom';
 
 const Login: React.FC = () => {
-  const [selectedValue, setSelectedValue] = useState(1);
   const [Id , setId] = useState('');
   const [Pw , setPw] = useState('');
   const [isIdPwFilled , setisIdPwFilled] = useState(true);
-
-
-  const handleChange = (value: number) => {
-    setSelectedValue(value);
-  };
+  const navigate = useNavigate();
 
 useEffect(()=>{
     setisIdPwFilled(!(Id && Pw));
@@ -20,15 +16,20 @@ useEffect(()=>{
 
   const handleSubmit=async()=>{
 
+    const data = {
+      email: Id,
+      password: Pw,
+    };
+
     try{
-        const res = await axios.post('');
+        const res = await axios.post('http://15.164.154.44:8081/api/user/login', data);
         console.log(res);
 
         const jwtToken = res.headers["at"];
         localStorage.setItem("At", jwtToken);
         const refreshToken =  res.headers["rt"];
         localStorage.setItem("Rt", refreshToken);
-
+        navigate('/header/main')
     }catch(error){
       console.log(error);
     }
@@ -37,28 +38,7 @@ useEffect(()=>{
   return (
     <LoginContainer>
       <LoginForm>
-        <Header>
-          <div>
-            <StyledInput
-              type="radio"
-              value={1}
-              checked={selectedValue === 1}
-              onChange={() => handleChange(1)}
-              name="role"
-            />
-            헬퍼
-          </div>
-          <div>
-            <StyledInput
-              type="radio"
-              value={2}
-              checked={selectedValue === 2}
-              onChange={() => handleChange(2)}
-              name="role"
-            />
-            요청자
-          </div>
-        </Header>
+
         <IdPwLayout style={{ marginBottom: "7px" }}>
           ID
           <Credentials>
@@ -95,6 +75,7 @@ useEffect(()=>{
 export default Login;
 
 const LoginContainer = styled.div`
+margin-top: 65.5px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -114,6 +95,7 @@ const Header = styled.div`
   gap: 20px;
   font-size: 12px;
   margin-bottom: 20px;
+  margin-top: 65.5px ;
   div {
     display: flex;
     align-items: center;

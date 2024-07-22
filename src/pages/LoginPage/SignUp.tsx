@@ -1,21 +1,22 @@
 import React, { useState, useEffect, ChangeEvent } from "react";
 import styled from "styled-components";
-
+import axios from "axios";
 const SignUp: React.FC = () => {
-  const [selectedValue, setSelectedValue] = useState(1);
+  const [selectedValue, setSelectedValue] = useState('');
   const [Id , setId] = useState('');
+  const [Name , setName] = useState('');
   const [Pw , setPw] = useState('');
   const [CheckPw , setCheckPw] = useState('');
   const [isIdPwFilled , setisIdPwFilled] = useState(true);
   const [isPwMismatch, setIsPwMismatch] = useState(false);
 
-  const handleChange = (value: number) => {
+  const handleChange = (value: string) => {
     setSelectedValue(value);
   };
 
 useEffect(()=>{
-    setisIdPwFilled(!(Id && Pw && CheckPw));
-},[Id,Pw,CheckPw])
+    setisIdPwFilled(!(Id && Pw && CheckPw && Name && selectedValue));
+},[Id,Pw,CheckPw, Name,selectedValue])
 
 const handleCheckNewPWChange = (e: ChangeEvent<HTMLInputElement>) => {
     const CheckPw = e.target.value;
@@ -27,6 +28,21 @@ const handleCheckNewPWChange = (e: ChangeEvent<HTMLInputElement>) => {
     }
   };
 
+  const handleSignUp =async()=>{
+    const data = {
+      email:Id,
+      password:Pw,
+      username: Name,
+      userRole: selectedValue,
+    };
+    try{
+      const res = await axios.post('http://15.164.154.44:8081/api/user/signup',data);
+      console.log(res);
+    }catch(error){
+      console.log(error);
+
+    }
+  }
 
   return (
     <LoginContainer>
@@ -36,8 +52,8 @@ const handleCheckNewPWChange = (e: ChangeEvent<HTMLInputElement>) => {
             <StyledInput
               type="radio"
               value={1}
-              checked={selectedValue === 1}
-              onChange={() => handleChange(1)}
+              checked={selectedValue === "RESPONDENT"}
+              onChange={() => handleChange("RESPONDENT")}
               name="role"
             />
             헬퍼 회원가입
@@ -46,8 +62,8 @@ const handleCheckNewPWChange = (e: ChangeEvent<HTMLInputElement>) => {
             <StyledInput
               type="radio"
               value={2}
-              checked={selectedValue === 2}
-              onChange={() => handleChange(2)}
+              checked={selectedValue === "REQUESTER"}
+              onChange={() => handleChange("REQUESTER")}
               name="role"
             />
             요청자 회원가입
@@ -62,11 +78,21 @@ const handleCheckNewPWChange = (e: ChangeEvent<HTMLInputElement>) => {
               value={Id}
               onChange={(e)=> setId(e.target.value)}
             ></CredentialsInput>
-           <CheckBTN >중복확인</CheckBTN>
           </Credentials>
           
         </IdPwLayout>
-
+        <IdPwLayout style={{ marginBottom: "7px" }}>
+          이름
+          <Credentials>
+            <CredentialsInput
+              placeholder="아이디를 입력해주세요"
+              style={{ border: "none", borderRadius: "20px" }}
+              value={Name}
+              onChange={(e)=> setName(e.target.value)}
+            ></CredentialsInput>
+          </Credentials>
+          
+        </IdPwLayout>
         <IdPwLayout>
           비밀번호
           <Credentials>
@@ -97,7 +123,7 @@ const handleCheckNewPWChange = (e: ChangeEvent<HTMLInputElement>) => {
         {
             isPwMismatch && <div>비밀번호가 일치하지 않습니다</div> 
         }
-      <LoginBTN disabled = {isPwMismatch || isIdPwFilled}>회원가입</LoginBTN>
+      <LoginBTN disabled = {isPwMismatch || isIdPwFilled } onClick={handleSignUp}>회원가입</LoginBTN>
 
       </LoginForm>
 
@@ -112,10 +138,11 @@ const LoginContainer = styled.div`
   flex-direction: column;
   align-items: center;
   width: 100%;
+  margin-top: 65.5px;
 `;
 
 const LoginForm = styled.div`
-  width: 329px;
+  width: 282px;
   display: flex;
   flex-direction: column;
 `;
