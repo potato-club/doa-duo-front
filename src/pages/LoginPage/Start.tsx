@@ -25,7 +25,6 @@ const Start: React.FC = () => {
  <StyledBTN to="/header/signup" width={183} height={39}>신규 회원 가입하기</StyledBTN>
   </LoginContainer>
 
-    
 
   );
 };
@@ -67,18 +66,19 @@ const Logo = styled.div`
 `;
 
 const StyledBTN = styled(Link)<StyledBTNProps>`
-    width: ${props => props.width}px;
-    height: ${props => props.height}px;
-    border: none;
-    background-color: #FFEDBB;
-    display: inline-flex;
-font-size: 11px;
+  width: ${(props) => props.width}px;
+  height: ${(props) => props.height}px;
+  font-family: "MediumFont2";
+  border: none;
+  background-color: #e0e0e0;
+  display: inline-flex;
 
-  width: 156px;
-  height: 156px;
-  background-color: gray;
-  border-radius: 78px;
-  margin-bottom: 29px;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  color: #FF8800;
+  margin-bottom: 7.5px;
+
+  border-radius: 20px;
 `;
-
 
