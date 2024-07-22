@@ -11,11 +11,11 @@ export const ResponserMainPage: React.FC<ResponserMainPageProps> = (props) => {
 
   const myPosition = useMyPositionHook();
 
-  useEffect(() => {
-    if (myPosition) {
-      setCenter(myPosition);
-    }
-  }, [myPosition])
+//   useEffect(() => {
+//     if (myPosition) {
+//       setCenter(myPosition);
+//     }
+//   }, [myPosition])
   
 
   return (
