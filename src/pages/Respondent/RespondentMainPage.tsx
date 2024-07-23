@@ -11,6 +11,8 @@ import { MenuModal } from '../../components/MenuModal';
 import CardContainer from '../../components/CardContainer';
 import axios from 'axios';
 import MatchingCompletedModal from '../../components/Modal/MatchingCompletedModal';
+import { RequestMarker } from '../../components/map/RequestMarker';
+import { stat } from 'fs';
 
 export interface RespondentMainPageProps {}
 
@@ -92,7 +94,10 @@ export const RespondentMainPage: React.FC<RespondentMainPageProps> = (
     <Container>
       {status === Status.Waiting && requester && (
         <CompleteWrapper>
-          <MatchingCompletedModal onClick={() => setStatus(Status.None)} username={`${requester.requesterName}님에게\n가고 있습니다.`} />
+          <MatchingCompletedModal
+            onClick={() => setStatus(Status.None)}
+            username={`${requester.requesterName}님에게\n가고 있습니다.`}
+          />
         </CompleteWrapper>
       )}
       <StyledMap
@@ -104,6 +109,24 @@ export const RespondentMainPage: React.FC<RespondentMainPageProps> = (
         isPanto
       >
         {myPosition ? <MyPositionMarker position={myPosition} /> : null}
+        {status === Status.Waiting && requester && (
+          <RequestMarker
+            position={{
+              lat: requester.latitude,
+              lng: requester.longitude,
+            }}
+          />
+        )}
+        {status === Status.None &&
+          requests.map((request) => (
+            <RequestMarker
+              key={request.id}
+              position={{
+                lat: request.latitude,
+                lng: request.longitude,
+              }}
+            />
+          ))}
       </StyledMap>
       <ResetButtonWrapper>
         <ResetButton

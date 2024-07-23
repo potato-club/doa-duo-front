@@ -15,11 +15,11 @@ export const RequestMarker: React.FC<RequestMarkerProps> = (props) => {
       image={{
         src: '/img/markers/request.svg',
         size: {
-          width: 12,
-          height: 13,
+          width: 30,
+          height: 39,
         },
         options: {
-          offset: { x: 6, y: 13 },
+          offset: { x: 15, y: 39 },
         },
       }}
     />
