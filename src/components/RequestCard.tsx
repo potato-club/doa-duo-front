@@ -1,11 +1,12 @@
-import React from "react";
-import styled from "styled-components";
+import React from 'react';
+import styled from 'styled-components';
 
 export interface RequestCardProps {
+  id: number;
   name: string;
-  info: string;
   address: string;
   content: string;
+  onAccept: () => void;
   onReject: () => void;
 }
 
@@ -16,23 +17,17 @@ export const RequestCard: React.FC<RequestCardProps> = (props) => {
         <ProfileImage />
         <ProfileData>
           <NameData>{props.name}님</NameData>
-          <InfoData>{props.info}</InfoData>
           <AddressData>{props.address}</AddressData>
         </ProfileData>
       </Profile>
       <ContentData>{props.content}</ContentData>
       <ButtonWrapper>
         <YesButton
-          onClick={() => {
-            console.log("수락");
-          }}
+          onClick={props.onAccept}
         >
           수락
         </YesButton>
-        <NoButton
-          title="거절"
-          onClick={props.onReject}
-        >
+        <NoButton title="거절" onClick={props.onReject}>
           거절
         </NoButton>
       </ButtonWrapper>
@@ -46,11 +41,10 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 330px;
   padding: 20px;
   border-radius: 16px;
-  height: 241px;
-  justify-content: space-between;
+  gap: 16px;
+  box-sizing: border-box;
 `;
 
 const Profile = styled.div`
@@ -82,30 +76,38 @@ const ButtonWrapper = styled.div`
 `;
 
 const NameData = styled.p`
-  font-family: "BoldFont";
+  color: #ffd769;
+  font-family: LotteMartHappy;
   font-size: 16px;
-`;
-
-const InfoData = styled.p`
-  font-family: "MediumFont";
-  font-size: 12px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
 `;
 
 const AddressData = styled.p`
-  font-family: "LightFont";
+  color: #7b7b7b;
+  text-align: center;
+  font-family: LotteMartDream;
   font-size: 10px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
 `;
 
 const ContentData = styled.p`
-  font-family: "MediumFont";
+  color: #555;
+  font-family: LotteMartDream;
   font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
 `;
 
 const YesButton = styled.button`
-  font-family: "BoldFont";
+  font-family: 'LotteMartHappy';
   font-size: 20px;
   color: #ff8800;
-  width: 165px;
+  width: 128px;
   border: none;
   border-right: 1px solid #d9d9d9;
   background-color: white;
@@ -116,10 +118,10 @@ const YesButton = styled.button`
 `;
 
 const NoButton = styled.button`
-  font-family: "BoldFont";
+  font-family: 'LotteMartHappy';
   font-size: 20px;
   color: #9d9d9d;
-  width: 165px;
+  width: 128px;
   border: none;
   background-color: white;
   border-left: 1px solid #d9d9d9;

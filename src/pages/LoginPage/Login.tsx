@@ -31,15 +31,17 @@ const Login: React.FC = () => {
         "http://15.164.154.44:8081/api/user/login",
         data
       );
-      console.log(res);
 
       const jwtToken = res.data["at"];
       localStorage.setItem("At", jwtToken);
       const refreshToken = res.data["rt"];
       localStorage.setItem("Rt", refreshToken);
 
-
-      navigate("/header/main");
+      if (res.data.role === 'ROLE_0') {
+        navigate("/req-main");
+      } else {
+        navigate("/res-main");
+      }
     } catch (error) {
       console.log(error);
     }

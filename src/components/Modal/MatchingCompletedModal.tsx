@@ -3,10 +3,12 @@ import styled from 'styled-components';
 
 interface MatchingCompletedModalProps {
   username: string;
+  onClick: () => void;
 }
 
 const MatchingCompletedModal: React.FC<MatchingCompletedModalProps> = ({
   username,
+  onClick,
 }) => {
   return (
     <MatchingCompletedModalContainer>
@@ -14,14 +16,12 @@ const MatchingCompletedModal: React.FC<MatchingCompletedModalProps> = ({
       <MatchResultMessage>
         <Title>도와듀오 매칭완료!</Title>
         <SubTitle>
-          {username}님이
-          <br />
-          오고 있습니다.
+          {username}
         </SubTitle>
       </MatchResultMessage>
       <ButtonWrapper>
-        <CancelButton>취소할래요</CancelButton>
-        <ArriveButton>도착했어요</ArriveButton>
+        <CancelButton onClick={onClick}>취소할래요</CancelButton>
+        <ArriveButton onClick={onClick}>도착했어요</ArriveButton>
       </ButtonWrapper>
     </MatchingCompletedModalContainer>
   );

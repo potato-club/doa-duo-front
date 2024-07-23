@@ -41,10 +41,10 @@ const CardContainer: React.FC = () => {
 
   return (
     <CardContainerWrapper>
-      <StyledRequestCard style={{ ...props }}>
+      {/* <StyledRequestCard style={{ ...props }}>
         <RequestCard
           name={array[index].name}
-          info={array[index].info}
+          // info={array[index].info}
           address={array[index].address}
           content={array[index].content}
           onReject={handleReject} // "거절" 버튼 클릭 시 handleReject 호출
@@ -54,13 +54,13 @@ const CardContainer: React.FC = () => {
         <NextRequestCard>
           <RequestCard
             name={array[index + 1].name}
-            info={array[index + 1].info}
+            // info={array[index + 1].info}
             address={array[index + 1].address}
             content={array[index + 1].content}
             onReject={() => {}} // 비워둠
           />
         </NextRequestCard>
-      )}
+      )} */}
     </CardContainerWrapper>
   );
 };
@@ -75,6 +75,7 @@ const CardContainerWrapper = styled.div`
   height: 305px;
   justify-content: center;
   align-items: center;
+  height: fit-content;
 `;
 
 const StyledRequestCard = styled(animated.div)`

@@ -69,7 +69,8 @@ export const RequesterMainPage: React.FC<RequesterMainPageProps> = (props) => {
           );
 
           if (res.data.acceptState) {
-            console.log(res.data);
+            setStatus(Status.Waiting);
+            // setRespondent();
           }
         } catch (error) {
           console.log(error);
@@ -127,9 +128,11 @@ export const RequesterMainPage: React.FC<RequesterMainPageProps> = (props) => {
           요청 중입니다...
         </Backdrop>
       ) : null}
-      {/* <CompleteWrapper>
-        <MatchingCompletedModal username="안호빈" />
-      </CompleteWrapper> */}
+      {status === Status.Waiting && (
+        <CompleteWrapper>
+          <MatchingCompletedModal onClick={() => setStatus(Status.None)} username={`안호빈님이\n오고 있습니다.`} />
+        </CompleteWrapper>
+      )}
       <StyledMap
         center={center}
         onDragEnd={(map: any) => {
@@ -241,12 +244,11 @@ const Backdrop = styled.div`
 
 const CompleteWrapper = styled.div`
   position: absolute;
-  width: 100%;
-  height: 100%;
   display: flex;
   justify-content: center;
   padding-top: 56px;
   z-index: 1000;
+  width: 100%;
 `;
 
 const ResetButtonWrapper = styled.div`
