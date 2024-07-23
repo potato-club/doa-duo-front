@@ -47,7 +47,7 @@ const Layout = styled.div<LayoutProps>`
   position: relative;
   width: 100%;
   height: 100%;
-  @media (max-width: 425px) {
+  /* @media (max-width: 425px) {
     width: ${props => props.width}px;
-  }
+  } */
 `;

@@ -35,6 +35,7 @@ export const RequesterMainPage: React.FC<RequesterMainPageProps> = (props) => {
   const [address, setAddress] = useState('');
   const [matchingKey, setMatchingKey] = useState('');
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [respondent, setRespondent] = useState();
 
   const myPosition = useMyPositionHook();
 
@@ -68,16 +69,16 @@ export const RequesterMainPage: React.FC<RequesterMainPageProps> = (props) => {
           );
 
           if (res.data.acceptState) {
-            //
+            console.log(res.data);
           }
         } catch (error) {
           console.log(error);
         }
-
-        return () => {
-          clearInterval(interval);
-        };
       }, 1000);
+
+      return () => {
+        clearInterval(interval);
+      };
     }
   }, [matchingKey, status]);
 
@@ -101,6 +102,11 @@ export const RequesterMainPage: React.FC<RequesterMainPageProps> = (props) => {
                     longitude: center.lng,
                     address: `${address} ${data.detailAddress}`,
                     quickMessage: data.quickMessage,
+                  },
+                  {
+                    headers: {
+                      AT: localStorage.getItem('At')?.split(' ')[1],
+                    },
                   }
                 );
 
@@ -148,12 +154,14 @@ export const RequesterMainPage: React.FC<RequesterMainPageProps> = (props) => {
           />
         ) : null}
       </StyledMap>
-      <Overlay>
+      <ResetButtonWrapper>
         <ResetButton
           onClick={() => {
             setCenter(myPosition ?? DefaultPosition);
           }}
         />
+      </ResetButtonWrapper>
+      <Overlay>
         {status === Status.Pending ? (
           <CancelButton onClick={() => setStatus(Status.None)}>
             취소하기
@@ -161,17 +169,13 @@ export const RequesterMainPage: React.FC<RequesterMainPageProps> = (props) => {
         ) : null}
         {status !== Status.Pending ? (
           <Footer
-            onMenuClick={(event) => {
-              setIsRequestModalOpen((prev) => !prev);
+            onMenuClick={() => {
+              setIsMenuOpen((prev) => !prev);
             }}
           />
         ) : null}
       </Overlay>
-      <MenuModal
-        isOpen={isMenuOpen}
-        onClose={() => setIsMenuOpen(false)}
-        bottomOffset={65}
-      /> */}
+      <MenuModal isOpen={isMenuOpen} onClose={() => setIsMenuOpen(false)} />
     </Container>
   );
 };
@@ -224,7 +228,7 @@ const Backdrop = styled.div`
   position: absolute;
   width: 100vw;
   height: 100vh;
-  z-index: 500;
+  z-index: 600;
   background-color: rgba(255, 255, 255, 0.4);
   backdrop-filter: blur(16px);
   color: var(--color-gray-700);
@@ -243,4 +247,11 @@ const CompleteWrapper = styled.div`
   justify-content: center;
   padding-top: 56px;
   z-index: 1000;
+`;
+
+const ResetButtonWrapper = styled.div`
+  position: absolute;
+  left: 27px;
+  bottom: 140px;
+  z-index: 500;
 `;

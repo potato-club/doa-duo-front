@@ -161,7 +161,7 @@ const Container = styled.div`
 const LogoDiv = styled.img`
   width: auto;
   height: 25px;
-  padding: 85px 120px 85px 120px;
+  padding: 28px 120px 40px 120px;
   display: flex;
   margin: 0 auto;
   justify-content: center;

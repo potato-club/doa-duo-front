@@ -47,7 +47,7 @@ interface SwipeableModalProps {
   bottomOffset?: number;
 }
 
-const OFFSET = 500;
+const OFFSET = 514;
 
 export const SwipeableModal: React.FC<SwipeableModalProps> = ({
   isOpen,

@@ -6,6 +6,9 @@ import { Position } from '../../types';
 import { useMyPositionHook } from '../../hooks/useMyPositionHook';
 import { RequestCard } from '../../components/RequestCard';
 import { ResetButton } from '../../components/map/ResetButton';
+import Footer from '../../components/Footer';
+import { MenuModal } from '../../components/MenuModal';
+import CardContainer from '../../components/CardContainer';
 
 export interface RespondentMainPageProps {}
 
@@ -14,10 +17,12 @@ const DefaultPosition: Position = {
   lng: 126.978,
 };
 
-export const RespondentMainPage: React.FC<RespondentMainPageProps> = (props) => {
+export const RespondentMainPage: React.FC<RespondentMainPageProps> = (
+  props
+) => {
   const [center, setCenter] = useState<Position>(DefaultPosition);
   const [isFirst, setIsFirst] = useState(true);
-  const [isEnable, setIsEnable] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const myPosition = useMyPositionHook();
 
@@ -40,26 +45,24 @@ export const RespondentMainPage: React.FC<RespondentMainPageProps> = (props) => 
       >
         {myPosition ? <MyPositionMarker position={myPosition} /> : null}
       </StyledMap>
-      {!isEnable ? <BlueOverlay /> : null}
-      <Overlay>
+      <ResetButtonWrapper>
         <ResetButton
           onClick={() => {
             setCenter(myPosition ?? DefaultPosition);
           }}
         />
-        <ResetButton
-          onClick={() => {
-            setIsEnable(!isEnable);
+      </ResetButtonWrapper>
+      <RequestWrapper>
+        <CardContainer />
+      </RequestWrapper>
+      <Overlay>
+        <Footer
+          onMenuClick={() => {
+            setIsMenuOpen((prev) => !prev);
           }}
         />
-        <RequestCard
-          name="홍길동"
-          info="저는 다리가 불편합니다"
-          address="경기도 파주시 탄현면"
-          content="휠체어에 태워 주셨으면 합니다"
-          onReject={() => {}} // 비워둠
-        />
       </Overlay>
+      <MenuModal isOpen={isMenuOpen} onClose={() => setIsMenuOpen(false)} />
     </Container>
   );
 };
@@ -75,18 +78,26 @@ const StyledMap = styled(Map)`
   position: absolute;
 `;
 
-const BlueOverlay = styled.div`
-  position: absolute;
-  width: 100vw;
-  height: 100vh;
-  z-index: 500;
-  background-color: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(16px);
-`;
-
-const Overlay = styled.div`
+const RequestWrapper = styled.div`
   position: absolute;
   bottom: 0;
   padding: 20px;
   z-index: 1000;
+`;
+
+const Overlay = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+  z-index: 1000;
+`;
+
+const ResetButtonWrapper = styled.div`
+  position: absolute;
+  left: 27px;
+  bottom: 140px;
+  z-index: 500;
 `;

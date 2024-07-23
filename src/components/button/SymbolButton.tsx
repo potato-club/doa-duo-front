@@ -23,7 +23,7 @@ const SymbolButtonContainer = styled.button`
   text-align: center;
   text-decoration: none;
   font-size: 16px;
-  margin: 0px;
+  margin-bottom: 60px;
   cursor: pointer;
   border-radius: 100%;
   transition: background-color 0.3s; /* 배경색 변화 효과 */
